@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import React, { Component } from 'react'
+import{Link} from 'react-router-dom';
 import axios from "axios";
 import {API_URL} from "../constant/Constants"
+
+
 
 class SignUp extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
             username: "",
             email: "",
@@ -29,72 +30,78 @@ class SignUp extends Component {
         }
         axios.post(API_URL + "signUp",data).then((response)=>{
            var res = response.data;
+           if(res !=="" ){
+               this.props.history.push('/');
+           }
            console.log(res);
         })
     }
-
-
+    
     render() {
         return (
-            
-            <div className="signup-form">
-                <form className="form" onSubmit={this.submitHandler.bind(this)}>
-                    <h2>Sign Up</h2>
-                    <p>Please fill in this form to create an account!</p>
-                    <hr />
-                    <div className="form-group">
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <span className="fa fa-user"></span>
-                                </span>
-                            </div>
-                            <input type="text" className="form-control" name="username" placeholder="Username" required="required" onChange={this.changeHander.bind(this)} />
+            <div className="signup-page">
+                <div className="signup-box">
+                    <div className="logo">
+                        <a href="javascript:void(0);">Sign up</a>
+                        {/* <small>Admin BootStrap Based - Material Design</small> */}
+                    </div>
+                    <div className="card">
+                        <div className="body">
+                            <form id="signUp" onSubmit={this.submitHandler.bind(this)}>
+                                {/* <div className="msg">Register a new membership</div> */}
+                                <div className="input-group">
+                                    <span className="input-group-addon">
+                                        <i className="material-icons">person</i>
+                                    </span>
+                                    <div className="form-line">
+                                        <input type="text" className="form-control" id="username" name="username"
+                                            placeholder="User name" onChange={this.changeHander.bind(this)} required autofocus />
+                                    </div>
+                                </div>
+                                <div className="input-group">
+                                    <span className="input-group-addon">
+                                        <i className="material-icons">email</i>
+                                    </span>
+                                    <div className="form-line">
+                                        <input type="email" className="form-control" id="email"
+                                            name="email" onChange={this.changeHander.bind(this)} placeholder="Email Address" required />
+                                    </div>
+                                </div>
+                                <div className="input-group">
+                                    <span className="input-group-addon">
+                                        <i className="material-icons">lock</i>
+                                    </span>
+                                    <div className="form-line">
+                                        <input type="password" className="form-control" id="password" name="password"
+                                            maxlength="6" onChange={this.changeHander.bind(this)} placeholder="Password" required />
+                                    </div>
+                                </div>
+                                <div className="input-group">
+                                    <span className="input-group-addon">
+                                        <i className="material-icons">lock</i>
+                                    </span>
+                                    <div className="form-line">
+                                        <input type="password" className="form-control"
+                                            name="confirm" minlength="6"  id="confirm"
+                                            onChange={this.changeHander.bind(this)} placeholder="Confirm Password" required />
+                                    </div>
+                                </div>
+                                <div className="form-group">
+                                    <input type="checkbox" name="terms" id="terms" className="filled-in chk-col-pink" />
+                                    <label for="terms">I read and agree to the <a href="javascript:void(0);">terms of usage</a>.</label>
+                                </div>
+
+                                <button className="btn btn-block btn-lg bg-pink waves-effect" type="submit">SIGN UP</button>
+
+                                <div className="m-t-25 m-b--5 align-center">
+                                    <Link to={"/logIn"}>You already have a membership?</Link>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <i className="fa fa-paper-plane"></i>
-                                </span>
-                            </div>
-                            <input type="email" className="form-control" name="email" placeholder="Email Address" required="required" onChange={this.changeHander.bind(this)} />
-                        </div>
-                    </div>
-                    <div className="form-group">
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <i className="fa fa-lock"></i>
-                                </span>
-                            </div>
-                            <input type="text" className="form-control" name="password" placeholder="Password" required="required" onChange={this.changeHander.bind(this)} />
-                        </div>
-                    </div>
-                    {/* <div class="form-group">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">
-                                    <i class="fa fa-lock"></i>
-                                    <i class="fa fa-check"></i>
-                                </span>
-                            </div>
-                            <input type="text" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required" />
-                        </div>
-                    </div> */}
-                    {/* <div class="form-group">
-                        <label class="form-check-label"><input type="checkbox" required="required" /> I accept the
-                        <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
-                    </div> */}
-                    <div className="form-group">
-                        <button type="submit" className="btn btn-primary btn-lg">Sign Up</button>
-                    </div>
-                </form>
-                <div className="text-center">Already have an account? <Link to={"logIn"} > Login here </Link>
                 </div>
             </div>
-        );
+        )
     }
 }
 export default SignUp;

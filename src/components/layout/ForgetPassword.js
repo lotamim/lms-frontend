@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import{Link} from 'react-router-dom';
 
 export default class ForgetPassword extends Component {
     constructor(props) {
@@ -11,42 +12,42 @@ export default class ForgetPassword extends Component {
 
     render() {
         return (
-            <div className="top-content">
-                <div className="inner-bg">
-                    <div className="container">
-
-                        {/* <div class="row"> */}
-                        {/* <div class="col-sm-8 col-sm-offset-2 text">
-                                <h1><strong>Bootstrap</strong> Forgot Password Forms</h1>
-                            </div> */}
-                        {/* </div> */}
-                        {/* <div class="col-sm-6 col-sm-offset-3 text"> */}
-                        <div className="form-box">
-                            <div className="form-top">
-                                <div className="form-top-left">
-                                    <h3>Forgot Password</h3>
-                                    <p>Enter username or email address to get password:</p>
-                                </div>
-                                <div className="form-top-right">
-                                    <i className="fa fa-lock"></i>
-                                </div>
-                            </div>
-                            <div className="form-bottom">
-                                <form role="form" action="" method="post" className="login-form">
-                                    <div className="form-group">
-                                        <label className="sr-only" for="form-username">Username</label>
-                                        <input type="text" name="form-username" placeholder="Username or email" class="form-username form-control" id="form-username" />
+            <body class="fp-page">
+                <div class="fp-box">
+                    <div class="logo">
+                        <a href="javascript:void(0);">Forget Password</a>
+                        {/* <small>Admin BootStrap Based - Material Design</small> */}
+                    </div>
+                    <div class="card">
+                        <div class="body">
+                            <form id="forgot_password" method="POST">
+                                <div class="msg">
+                                    Enter your email address that you used to register. We'll send you an email with your username and a
+                                    link to reset your password.
+                    </div>
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">email</i>
+                                    </span>
+                                    <div class="form-line">
+                                        <input type="email" class="form-control" name="email"
+                                            placeholder="Email" required autofocus />
                                     </div>
-                                    <button type="submit" className="btn col-sm-5">Submit</button>
-                                    <br /><br />
-                                    {/* <a class="btn btn-primary" href="index.html">Sign In</a> */}
-                                    {/* <a class="btn btn-primary" href="register.html" style={{ float: "right" }}>Sign Up</a> */}
-                                </form>
-                            </div>
+                                </div>
+
+                                <button class="btn btn-block btn-lg bg-pink waves-effect" type="submit">RESET MY PASSWORD</button>
+
+                                <div class="row m-t-20 m-b--5 align-center">
+                                    <Link to="/logIn">Sign In!</Link>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
+
+
+            </body>
+
         )
     }
 }

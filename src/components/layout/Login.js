@@ -8,70 +8,84 @@ class Login extends Component {
         super(props)
 
         this.state = {
-            username : "",
-            password : "",
+            username: "",
+            password: "",
         }
     }
-    changeHandler = (event) =>{
-      this.setState({
-          [event.target.name] : event.target.value
-      })
+
+    changeHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
     }
 
     onSubmitHandler = (event) => {
         event.preventDefault();
         const userInfo = {
-            username :this.state.username,
-            password :this.state.password,
+            username: this.state.username,
+            password: this.state.password,
         }
-        Auth.login(userInfo).then((response)=>{
+        Auth.login(userInfo).then((response) => {
             // if (data.role.includes("ROLE_ADMIN"))
-            if(response.token){
-                this.props.history.push("/adminDashboard")
+            if (response.token) {
+                this.props.history.push("/adminDashboard");
+                window.location.reload("/adminDashboard");
             }
-            console.log("HI"+ response.token)        
-         })
+            console.log("HI" + response.token)
+        })
     }
 
     render() {
         return (
-            <div>
-                <main className="d-flex align-items-center min-vh-100 py-3 py-md-0">
-                    <div className="container">
-                        <div className="card login-card">
-                            <div className="row no-gutters">
-                                <div className="col-md-5">
-                                    <img src="assets/img/login.jpg" alt="login" className="login-card-img" />
-                                </div>
-                                <div className="col-md-7">
-                                    <div className="card-body">
-                                        {/* <div class="brand-wrapper">
-                                            <img src="assets/img/logo.svg" alt="logo" class="logo" />
-                                        </div> */}
-                                        <p className="login-card-description">Log In</p>
-                                        <form onSubmit={this.onSubmitHandler.bind(this)}>
-                                            <div className="form-group">
-                                                {/* <label for="email" class="sr-only">Email</label> */}
-                                                <input type="text" name="username" id="username" className="form-control" 
-                                                placeholder="username" onChange={this.changeHandler.bind(this)}/>
-                                            </div>
-                                            <div className="form-group mb-4">
-                                                {/* <label for="password" class="sr-only">Password</label> */}
-                                                <input type="password" name="password" id="password" className="form-control" 
-                                                placeholder="***********" onChange={this.changeHandler.bind(this)} />
-                                            </div>
-                                            <input name="login" id="login" className="btn btn-block login-btn mb-4" type="submit" value="Login" />
-                                        </form>
-                                        <Link to={"forgetPassword"} className="forgot-password-link">Forgot password? </Link>
-                                        <p className="login-card-footer-text">Don't have an account?
-                                          <Link to={"signUp"} class="text-reset"> registration </Link>
-                                        </p>
+            <div class="login-page">
+                <div class="login-box">
+                    <div class="logo">
+                        <a href="javascript:void(0);">Login</a>
+                        {/* <small>Admin BootStrap Based - Material Design</small> */}
+                    </div>
+                    <div className="card">
+                        <div className="body">
+                            <form id="signIn" onSubmit={this.onSubmitHandler.bind(this)}>
+                                {/* <div className="msg">Sign in to start your session</div> */}
+                                <div className="input-group">
+                                    <span className="input-group-addon">
+                                        <i className="material-icons">person</i>
+                                    </span>
+                                    <div className="form-line">
+                                        <input type="text" className="form-control" id="username"
+                                            name="username" onChange={this.changeHandler.bind(this)} placeholder="Username" required autofocus />
                                     </div>
                                 </div>
-                            </div>
+                                <div className="input-group">
+                                    <span className="input-group-addon">
+                                        <i className="material-icons">lock</i>
+                                    </span>
+                                    <div className="form-line">
+                                        <input type="password" className="form-control" id="password"
+                                            name="password" onChange={this.changeHandler.bind(this)} placeholder="Password" required />
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col-xs-8 p-t-5">
+                                        <input type="checkbox" name="rememberme" id="rememberme" className="filled-in chk-col-pink" />
+                                        <label for="rememberme">Remember Me</label>
+                                    </div>
+                                    <div className="col-xs-4">
+                                        <button className="btn btn-block bg-pink waves-effect" type="submit">SIGN IN</button>
+                                    </div>
+                                </div>
+                                <div className="row m-t-15 m-b--20">
+                                    <div className="col-xs-6">
+                                        <Link to={"/signUp"}>Register Now!</Link>
+                                    </div>
+                                    <div className="col-xs-6 align-right">
+                                        <Link to="/forgetPassword">Forgot Password?</Link>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </main>
+                </div>
             </div>
         );
     }
