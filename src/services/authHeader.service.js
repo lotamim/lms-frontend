@@ -1,7 +1,7 @@
 import Auth from './auth.service';
 
 export default function authHeader() {
-    const user = Auth.getCurrentUser();
+    let user = Auth.getCurrentUser();
     if (user && user.token) {
         return {
             'Accept': 'application/json',

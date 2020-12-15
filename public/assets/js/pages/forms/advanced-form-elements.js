@@ -44,7 +44,7 @@ $(function () {
     //===========================================================================================================================================
 
     //Multi-select
-    $('#optgroup').multiSelect({ selectableOptgroup: true });
+    // $('#optgroup').multiSelect({ selectableOptgroup: true });
 
     //noUISlider
     var sliderBasic = document.getElementById('nouislider_basic_example');

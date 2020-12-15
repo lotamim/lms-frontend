@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-// import LeftMenu from '../dashboard/LeftMenu';
-// import Navbar from '../dashboard/Navbar';
+import Http from '../../services/http.service';
+import { withAlert } from 'react-alert'
 
 class RoleList extends Component {
     constructor(props) {
@@ -10,26 +10,155 @@ class RoleList extends Component {
             loding: true,
             showList: true,
             showCreate: false,
+            id: "",
+            name: "",
+            remarks: "",
+            roleList: []
         }
     }
+
     componentDidMount = () => {
-        console.log("Loding");
+        this.roleList();
+    }
+
+    componentDidUpdate = (prevProps, prevState, sS) => {
+        if (this.state.loading !== prevState.loading) {
+            this.roleList();
+            this.setState({
+                loading: false,
+            });
+        }
     }
 
     addNew = () => {
         this.setState({
-            showCreate : true,
-            showList : false,
+            showCreate: true,
+            showList: false,
+            id: "",
+            name: "",
+            remarks: "",
+        })
+    }
+
+    backToList = () => {
+        this.setState({
+            showCreate: false,
+            showList: true,
+        })
+    }
+
+    onChangeHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value
+        })
+    }
+
+    onSubmitHandler = (event) => {
+        event.preventDefault();
+        let path = "";
+        const { alert } = this.props;
+        let data = {
+            roleId: this.state.id,
+            name: this.state.name,
+            remarks: this.state.remarks,
+        }
+
+        /*:: NOTE: If Id is found then data will be update ::  
+          :: So you should put the hidden filed in your submit form ::
+         */
+        if (this.state.id !== "") {
+            path = "role/update";
+            Http.update(path, data).then(res => {
+                if (!res.data.error) {
+                    alert.success(res.data.update)
+                    this.setState({
+                        showCreate: false,
+                        showList: true,
+                        loading: true,
+                    });
+                }else{
+                 alert.error(res.data.error)
+                }
+            })
+        } else {
+            path = "role/save";
+            Http.save(path, data).then(res => {
+                if (!res.data.error) {
+                    alert.success(res.data.success)
+                    this.setState({
+                        showCreate: false,
+                        showList: true,
+                        loading: true,
+                    });
+                }else{
+                    alert.error(res.data.error)
+                }
+            })
+        }
+
+    }
+
+    roleList = () => {
+        const path = "role/list";
+        Http.list(path).then(res => {
+            this.setState({
+                roleList: res.data.roleList,
+                loading: false,
+            })
+        })
+    }
+
+    selectHandler = (id, data) => {
+        let role = JSON.stringify(data)
+        this.setState({
+            id: data.id,
+            name: data.name,
+            remarks: data.remarks,
+            showCreate: true,
+            showList: false
+        })
+    }
+
+    deleteHandler = (id) => {
+        let path = "role/delete";
+        const { alert } = this.props;
+        let data = {
+            roleId: id,
+        }
+        Http.delete(path, data).then(res => {
+            console.log(res)
+            if (!res.data.error) {
+                alert.success(res.data.delete)
+                this.setState({
+                    loading: true,
+                });
+            } else {
+                alert.error(res.data.error)
+            }
         })
     }
 
 
     render() {
+        const { roleList } = this.state
+        const data = roleList.map((role, index) => {
+            return (
+                <tr key={index + 1}>
+                    <td scope="row">{index + 1}</td>
+                    <td>{role.name}</td>
+                    <td>{role.remarks}</td>
+                    <td style={{ textAlign: "center" }}>
+                        <i className="material-icons" onClick={() => this.selectHandler(role.id, role)}>edit</i>
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                        <i className="material-icons" onClick={() => this.deleteHandler(role.id)}>delete_sweep</i>
+                    </td>
+                </tr>
+            );
+        });
+
         return (
             <div>
-                {/* <Navbar />
-                <LeftMenu /> */}
-
                 <section className="content">
                     <div className="container-fluid">
                         {this.state.showList &&
@@ -38,10 +167,10 @@ class RoleList extends Component {
                                     <div className="card">
                                         <div className="header">
                                             <h2>
-                                               Role List
+                                                Role List
                                              </h2>
                                             <ul className="header-dropdown m-r--5">
-                                                <button type="button" className="btn btn-primary" onClick={this.addNew.bind(this)}>
+                                                <button type="button" className="btn bg-teal waves-effect" onClick={this.addNew.bind(this)}>
                                                     +
                                             </button>
                                             </ul>
@@ -50,43 +179,14 @@ class RoleList extends Component {
                                             <table className="table table-bordered">
                                                 <thead>
                                                     <tr>
-                                                        <th>#</th>
-                                                        <th>FIRST NAME</th>
-                                                        <th>LAST NAME</th>
-                                                        <th>USERNAME</th>
+                                                        <th>SL NO.</th>
+                                                        <th>Role Type</th>
+                                                        <th>Remarks</th>
+                                                        <th colSpan="2" style={{ textAlign: "center" }}>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">1</th>
-                                                        <td>Mark</td>
-                                                        <td>Otto</td>
-                                                        <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">4</th>
-                                                        <td>Larry</td>
-                                                        <td>Jellybean</td>
-                                                        <td>@lajelly</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">5</th>
-                                                        <td>Larry</td>
-                                                        <td>Kikat</td>
-                                                        <td>@lakitkat</td>
-                                                    </tr>
+                                                    {data}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -102,40 +202,41 @@ class RoleList extends Component {
                                         <div className="card">
                                             <div className="header">
                                                 <h2>
-                                                    VERTICAL LAYOUT
+                                                    Create Role
                                                 </h2>
                                                 <ul className="header-dropdown m-r--5">
                                                     <li className="dropdown">
-                                                        <a href="javascript:void(0);" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                                                            <i className="material-icons">more_vert</i>
+                                                        <a href="javascript:void(0);" onClick={this.backToList.bind(this)} role="button" >
+                                                            <i className="material-icons">keyboard_backspace</i>
                                                         </a>
-                                                        <ul className="dropdown-menu pull-right">
-                                                            <li><a href="javascript:void(0);">Action</a></li>
-                                                            <li><a href="javascript:void(0);">Another action</a></li>
-                                                            <li><a href="javascript:void(0);">Something else here</a></li>
-                                                        </ul>
                                                     </li>
                                                 </ul>
                                             </div>
                                             <div className="body">
-                                                <form>
-                                                    <label for="email_address">Email Address</label>
-                                                    <div className="form-group">
-                                                        <div className="form-line">
-                                                            <input type="text" id="email_address" className="form-control" placeholder="Enter your email address" />
-                                                        </div>
-                                                    </div>
-                                                    <label for="password">Password</label>
-                                                    <div className="form-group">
-                                                        <div className="form-line">
-                                                            <input type="password" id="password" className="form-control" placeholder="Enter your password" />
-                                                        </div>
-                                                    </div>
+                                                <form onSubmit={this.onSubmitHandler.bind(this)}>
+                                                    <input type="hidden" id="id" name="id" className="form-control" value={this.state.id} />
 
-                                                    <input type="checkbox" id="remember_me" className="filled-in" />
-                                                    <label for="remember_me">Remember Me</label>
+                                                    <label>Name</label>
+                                                    <div className="form-group">
+                                                        <div className="form-line">
+                                                            <input type="text" id="name" name="name" className="form-control" value={this.state.name}
+                                                                placeholder="Enter your role" onChange={this.onChangeHandler.bind(this)} />
+                                                        </div>
+                                                    </div>
+                                                    <label>Remarks</label>
+                                                    <div className="form-group">
+                                                        <div className="form-line">
+                                                            <input type="text" id="remarks" name="remarks" className="form-control" value={this.state.remarks}
+                                                                placeholder="Enter your remarks" onChange={this.onChangeHandler.bind(this)} />
+                                                        </div>
+                                                    </div>
                                                     <br />
-                                                    <button type="button" className="btn btn-primary m-t-15 waves-effect">LOGIN</button>
+                                                    {this.state.id == "" ?
+                                                        (<button type="submit" className="btn bg-pink waves-effect">Save</button>)
+                                                        :
+                                                        (<button type="submit" className="btn bg-pink waves-effect">Update</button>)
+                                                    }
+
                                                 </form>
                                             </div>
                                         </div>
@@ -149,6 +250,7 @@ class RoleList extends Component {
         )
     }
 }
-export default RoleList;
+export default withAlert()(RoleList);
+// export default RoleList;
 
 

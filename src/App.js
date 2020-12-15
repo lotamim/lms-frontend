@@ -1,16 +1,14 @@
 import React, { Component } from 'react'
 import LeftMenu from './components/dashboard/LeftMenu';
 import Navbar from './components/dashboard/Navbar';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Login from './components/layout/Login';
 import SignUp from './components/layout/SignUp';
-// import Authentication from '../src/components/layout/Authentication';
-// import Nav from './components/nav/Navigation';
 import ForgetPassword from './components/layout/ForgetPassword'
 import AdminDashboard from './components/dashboard/AdminDashboard';
 import UserList from './components/user/UserList';
 import RoleList from './components/role/RoleList';
+import UserRoleMap from './components/user/UserRoleMap';
 import AuthService from './services/auth.service';
 
 
@@ -27,7 +25,7 @@ class App extends Component {
     return (
       <div className="theme-red">
 
-        {AuthService.getCurrentUser() !== null &&
+        {AuthService.getCurrentUser() !== null ?
           (
             <Router>
               <Navbar />
@@ -40,10 +38,11 @@ class App extends Component {
                 <Route exact path="/forgetPassword" component={ForgetPassword} />
                 <Route exact path="/userList" component={UserList} />
                 <Route exact path="/roleList" component={RoleList} />
+                <Route exact path="/userRoleMap" component={UserRoleMap} />
               </Switch>
             </Router>
-          )
-        }
+            ) 
+          : (
             <Router>
               <Switch>
                 <Route exact path="/" component={Login} />
@@ -51,10 +50,8 @@ class App extends Component {
                 <Route exact path="/signUp" component={SignUp} />
               </Switch>
             </Router>
-          
-        
-
-
+          )
+        }
       </div>
     );
   }

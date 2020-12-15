@@ -11,21 +11,9 @@ class AdminDashboard extends Component {
 
         }
     }
-
-    // clickHandler = () => {
-    //     alert("Hi")
-    //     // let logout = Auth.logout();
-    //     // // console.log(logout == undefined);
-    //     // if (logout == undefined) {
-    //     //     this.props.history.push("/");
-    //     // }
-    // }
-
     render() {
         return (
             <div>
-                <Navbar />
-                <LeftMenu />
                 <section className="content">
                     <div className="container-fluid">
                         <div className="block-header">

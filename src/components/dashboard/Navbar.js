@@ -34,12 +34,12 @@ class Navbar extends Component {
                             <li className="pull-right">
                                 <i className="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
                                 <ul className="dropdown-menu pull-right">
-                                    <li><a href="#"><i className="material-icons">person</i>Profile</a></li>
-                                    <li role="seperator" className="divider"></li>
-                                    <li><a href="#"><i className="material-icons">group</i>Followers</a></li>
-                                    <li><a href="#"><i className="material-icons">shopping_cart</i>Sales</a></li>
-                                    <li><a href="#"><i className="material-icons">favorite</i>Likes</a></li>
-                                    <li role="seperator" className="divider"></li>
+                                    {/* <li><a href="#"><i className="material-icons">person</i>Profile</a></li> */}
+                                    {/* <li role="seperator" className="divider"></li> */}
+                                    {/* <li><a href="#"><i className="material-icons">group</i>Followers</a></li> */}
+                                    {/* <li><a href="#"><i className="material-icons">shopping_cart</i>Sales</a></li> */}
+                                    {/* <li><a href="#"><i className="material-icons">favorite</i>Likes</a></li> */}
+                                    {/* <li role="seperator" className="divider"></li> */}
                                     {/* onClick={this.clickHandler.bind(this)} */}
                                     <li onClick={this.clickHandler}><Link to="#"><i className="material-icons">input</i>Sign Out</Link></li>
                                 </ul>

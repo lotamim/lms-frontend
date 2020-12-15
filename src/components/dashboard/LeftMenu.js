@@ -20,15 +20,15 @@ class LeftMenu extends Component {
                     <div className="menu">
                         <ul className="list">
                             <li className="active">
-                                <a href="index.html">
+                                <Link to="/adminDashboard">
                                     <i className="material-icons">home</i>
                                     <span>Home</span>
-                                </a>
+                                </Link>
                             </li>
 
                             <li>
                                 <a href="javascript:void(0)" className="menu-toggle">
-                                    <i className="material-icons">widgets</i>
+                                    <i className="material-icons">settings</i>
                                     <span>Settings</span>
                                 </a>
                                 <ul className="ml-menu">
@@ -58,6 +58,18 @@ class LeftMenu extends Component {
                                     </li>
                                     <li>
                                         <Link to="/roleList">Role</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/userRoleMap">User Role Mapping</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Module</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Menu</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Menu Item</Link>
                                     </li>
                                     <li>
                                         <Link to="#">Reset Password</Link>

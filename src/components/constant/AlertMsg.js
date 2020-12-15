@@ -1,15 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { useAlert } from 'react-alert'
 
-class AlertMsg extends Component {
-    render() {
-        return (
-            <div className="alert alert-success alert-dismissible " role="alert">
-                <button type="button" className="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
-                </button>
-                Date Save Successfully !
-            </div>
-        );
-    }
+const AlertMsg = (props) => {
+    debugger;
+    const alert = useAlert();
+    return(
+        alert.success("Data save successfully")
+    );
 }
 export default AlertMsg;
 
