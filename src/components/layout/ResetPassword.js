@@ -1,135 +1,125 @@
-/*
-  Note : This dropdown list using for system ::
-  https://www.npmjs.com/package/multiselect-react-dropdown
-*/
 import React, { Component } from 'react'
 import Http from '../../services/http.service';
-import { API_URL } from '../constant/Constants';
 import { Multiselect } from 'multiselect-react-dropdown';
-import { withAlert } from 'react-alert';
+import moment from 'moment';
+import { withAlert } from 'react-alert'
 
 
-class UserRoleMap extends Component {
 
+class ResetPassword extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             roleList: [],
             userList: [],
-            roleMappingList: [],
-            loading: true,
+            passwordHistoryList: [],
+            loding: true,
             showList: true,
             showCreate: false,
+            password: "",
+            remarks: "",
         }
-        this.singleRef = React.createRef();
-        this.multiRef = React.createRef();
+        this.singleSelect = React.createRef();
     }
+
 
     componentDidMount = () => {
+        this.passwordHistoryList();
         this.userList();
-        this.roleList();
-        this.mappingList();
     }
 
-    componentDidUpdate = (pP,pS,sS) => {
-         if(this.state.loading !== pS.loading){
-            this.mappingList();
+    componentDidUpdate = (pP, pS, sS) => {
+        if (this.state.loding !== pS.loding) {
+            this.passwordHistoryList();
             this.setState({
-                loading : false,
-            })
-         }
+                loding: false,
+            });
+        }
     }
 
     addNew = () => {
         this.setState({
             showCreate: true,
             showList: false,
-        })
+        });
     }
 
     backToList = () => {
         this.setState({
             showCreate: false,
             showList: true,
-        })
+        });
     }
 
     userList = () => {
         const path = "user/list";
         Http.get(path).then(res => {
             this.setState({
-                userList: res.data.userList,
-                loading: false,
-            })
+                userList: res.data.userList
+            });
         });
     }
 
-    roleList = () => {
-        const path = "role/list";
-        Http.list(path).then(res => {
+    passwordHistoryList = () => {
+        const path = "reset/restHistoryList";
+        Http.get(path).then(res => {
             this.setState({
-                roleList: res.data.roleList,
-                loading: false,
-            })
-        })
+                passwordHistoryList: res.data,
+                loding: false,
+            });
+        });
     }
 
-    onSubmitHandler = (event) => {
+    onChangeHandler = (event) => {
+        this.setState({
+            [event.target.name]: event.target.value,
+        });
+    }
+
+    onSubmitFrom = (event) => {
         event.preventDefault();
         const { alert } = this.props;
-        const path = "userRoleMapping/save";
-        var roleList = [];
-        var data = new FormData();
-        this.singleRef.current.getSelectedItems().map((user) => {
+        let path = "reset/resetPassword";
+        var data = new FormData(); // Currently empty
+        this.singleSelect.current.getSelectedItems().map(user => {
             data.append("username", user.username);
         });
-        this.multiRef.current.getSelectedItems().map((role) => {
-            roleList.push(role.name);
-        });
-        data.append("roleList", roleList)
-        Http.save(path, data).then((res) => {
+        data.append("password", this.state.password);
+        data.append("remarks", this.state.remarks);
+
+        Http.save(path, data).then(res => {
             if (!res.data.error) {
                 this.setState({
-                    loading: true,
-                    showCreate: false,
+                    loding: true,
                     showList: true,
+                    showCreate: false,
+                    password: "",
+                    remarks: "",
                 });
                 alert.success(res.data.success);
+
             } else {
                 alert.error(res.data.error);
             }
         });
-
-        // for (var value of data.values()) {
-        //     console.log(value);
-        //  }
-        // console.log(data);
-
     }
 
-    mappingList = () => {
-        let path = "userRoleMapping/list";
-        Http.get(path).then((res) => {
-            this.setState({
-                roleMappingList: res.data,
-                loading: false
-            })
-            //   console.log(res.data);
-        });
-    }
 
     render() {
-        const { roleMappingList } = this.state;
-        const data = roleMappingList.map((roleMapping, index) => {
+
+        const { passwordHistoryList } = this.state;
+        const data = passwordHistoryList.map((history, index) => {
             return (
                 <tr key={index + 1}>
                     <td scope="row">{index + 1}</td>
-                    <td>{roleMapping.user_name}</td>
-                    <td>{roleMapping.role_name}</td>
+                    <td>{history.username}</td>
+                    <td>{history.change_by}</td>
+                    <td>{moment(history.change_date).format("DD/MM/YYYY")}</td>
+                    <td>{history.remarks}</td>
                 </tr>
-            );
-        });
+            )
+        })
         return (
             <div>
                 <section className="content">
@@ -140,7 +130,7 @@ class UserRoleMap extends Component {
                                     <div className="card">
                                         <div className="header">
                                             <h2>
-                                                User Role Map
+                                                Reset Password History
                                         </h2>
                                             <ul className="header-dropdown m-r--5">
                                                 <button type="button" class="btn bg-teal waves-effect" onClick={this.addNew.bind(this)}>
@@ -154,7 +144,9 @@ class UserRoleMap extends Component {
                                                     <tr>
                                                         <th>SL No.</th>
                                                         <th>User Name</th>
-                                                        <th>Role Name</th>
+                                                        <th>Change By</th>
+                                                        <th>Change Date</th>
+                                                        <th>Remarks</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -174,7 +166,7 @@ class UserRoleMap extends Component {
                                         <div className="card">
                                             <div className="header">
                                                 <h2>
-                                                    Create User Role Map
+                                                    Reset Password
                                                 </h2>
                                                 <ul className="header-dropdown m-r--5">
                                                     <li className="dropdown">
@@ -185,24 +177,31 @@ class UserRoleMap extends Component {
                                                 </ul>
                                             </div>
                                             <div className="body">
-                                                <form onSubmit={this.onSubmitHandler.bind(this)}>
+                                                <form onSubmit={this.onSubmitFrom.bind(this)}>
                                                     <label>User Name</label>
                                                     <div className="form-group">
                                                         <Multiselect
                                                             options={this.state.userList}
                                                             singleSelect
-                                                            ref={this.singleRef}
+                                                            ref={this.singleSelect}
                                                             displayValue="username"
                                                         />
                                                     </div>
 
-                                                    <label>Role</label>
+                                                    <label>New Password</label>
                                                     <div className="form-group">
-                                                        <Multiselect
-                                                            options={this.state.roleList}
-                                                            ref={this.multiRef}
-                                                            displayValue="name"
-                                                        />
+                                                        <div className="form-line">
+                                                            <input type="password" class="form-control" name="password" id="passowrd"
+                                                                value={this.state.password} placeholder="Password" onChange={this.onChangeHandler.bind(this)} />
+                                                        </div>
+                                                    </div>
+
+                                                    <label>Remarks</label>
+                                                    <div className="form-group">
+                                                        <div className="form-line">
+                                                            <input type="text" id="remarks" name="remarks" className="form-control" value={this.state.remarks}
+                                                                placeholder="Enter your remarks" onChange={this.onChangeHandler.bind(this)} />
+                                                        </div>
                                                     </div>
 
                                                     <br />
@@ -221,4 +220,4 @@ class UserRoleMap extends Component {
         )
     }
 }
-export default withAlert()(UserRoleMap);
+export default withAlert()(ResetPassword); 

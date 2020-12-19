@@ -25,8 +25,18 @@ class Navbar extends Component {
                 <div className="container-fluid">
                     <div className="navbar-header">
                         <a href="#" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
-                        <a href="#" className="bars"></a>
+                        {/* <a href="#" className="bars">dfdfdf</a> */}
                         <a className="navbar-brand" href="index.html">Newgen Technology Ltd.</a>
+                    </div>
+                    <div className="navbar-header " id="">
+                        <span className="navbar-brand moduleBar" href="index.html">
+                           {/* <span className="moduleName"> HRM </span> */}
+                           {/* <span className="moduleName"> Payroll </span> */}
+                           {/* <span className="moduleName"> Inventory </span> */}
+                           {/* <span className="moduleName"> Account </span> */}
+                           {/* <span className="moduleName"> Asset </span> */}
+                         </span>
+                        
                     </div>
                     <div className="collapse navbar-collapse" id="navbar-collapse">
                         <ul className="nav navbar-nav navbar-right">

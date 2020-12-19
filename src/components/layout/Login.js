@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Auth from '../../services/auth.service'
-
+import { withAlert } from 'react-alert'
 
 class Login extends Component {
     constructor(props) {
@@ -21,6 +21,7 @@ class Login extends Component {
 
     onSubmitHandler = (event) => {
         event.preventDefault();
+        const { alert } = this.props;
         const userInfo = {
             username: this.state.username,
             password: this.state.password,
@@ -28,11 +29,15 @@ class Login extends Component {
         Auth.login(userInfo).then((response) => {
             // if (data.role.includes("ROLE_ADMIN"))
             if (response.token) {
-                this.props.history.push("/adminDashboard");
-                window.location.reload("/adminDashboard");
+                window.location.replace("/adminDashboard")
+                // this.props.history.push("/adminDashboard");
+                // window.location.reload("/adminDashboard");
             }
-            console.log("HI" + response.token)
-        })
+        }).catch(error => {
+            if (error.response) {
+                alert.error("You are " + error.response.data.error);
+            }
+          });
     }
 
     render() {
@@ -90,4 +95,4 @@ class Login extends Component {
         );
     }
 }
-export default Login
+export default withAlert()(Login);

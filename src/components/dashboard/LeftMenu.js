@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 
-
-
 class LeftMenu extends Component {
     constructor(props) {
         super(props)
@@ -33,23 +31,51 @@ class LeftMenu extends Component {
                                 </a>
                                 <ul className="ml-menu">
                                     <li>
-                                        <a href="javascript:void(0)" className="menu-toggle">
-                                            <span>Cards</span>
-                                        </a>
-                                        <ul className="ml-menu">
-                                            <li>
-                                                <Link to="#">Basic</Link>
-                                            </li>
-                                        </ul>
+                                        <Link to="/organization">Organization</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/department">Department</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/position">Position</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/degree">Degree</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/leaveType">Leave Type</Link>
                                     </li>
                                 </ul>
                             </li>
 
 
                             <li>
-                                
+                                <a href="javascript:void(0)" className="menu-toggle">
+                                    <i className="material-icons">weekend</i>
+                                    <span>Leave</span>
+                                </a>
+                                <ul className="ml-menu">
+                                    <li>
+                                        <Link to="#">Leave Type</Link>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)" className="menu-toggle">
+                                    <i className="material-icons">verified_user</i>
+                                    <span>Attendance</span>
+                                </a>
+                                <ul className="ml-menu">
+                                    <li>
+                                        <Link to="#">Leave Type</Link>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
                                 <a href="#" className="menu-toggle">
-                                    <i className="material-icons">widgets</i>
+                                    <i className="material-icons">group</i>
                                     <span>User Management</span>
                                 </a>
                                 <ul className="ml-menu">
@@ -62,17 +88,17 @@ class LeftMenu extends Component {
                                     <li>
                                         <Link to="/userRoleMap">User Role Mapping</Link>
                                     </li>
-                                    <li>
-                                        <Link to="#">Module</Link>
-                                    </li>
-                                    <li>
+                                    {/* <li>
+                                        <Link to="/module">Module</Link>
+                                    </li> */}
+                                    {/* <li>
                                         <Link to="#">Menu</Link>
-                                    </li>
-                                    <li>
+                                    </li> */}
+                                    {/* <li>
                                         <Link to="#">Menu Item</Link>
-                                    </li>
+                                    </li> */}
                                     <li>
-                                        <Link to="#">Reset Password</Link>
+                                        <Link to="/resetPassword">Reset Password</Link>
                                     </li>
                                 </ul>
                             </li>

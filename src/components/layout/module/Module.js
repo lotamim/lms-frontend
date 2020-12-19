@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
-import Http from '../../services/http.service';
-import { withAlert } from 'react-alert';
 
-class RoleList extends Component {
+ class Module extends Component {
     constructor(props) {
         super(props)
 
@@ -18,7 +16,7 @@ class RoleList extends Component {
     }
 
     componentDidMount = () => {
-        this.roleList();
+        // this.roleList();
     }
 
     componentDidUpdate = (prevProps, prevState, sS) => {
@@ -53,110 +51,12 @@ class RoleList extends Component {
         })
     }
 
-    onSubmitHandler = (event) => {
-        event.preventDefault();
-        let path = "";
-        const { alert } = this.props;
-        let data = {
-            roleId: this.state.id,
-            name: this.state.name,
-            remarks: this.state.remarks,
-        }
+    onSubmitHandler = () =>{
 
-        /*:: NOTE: If Id is found then data will be update ::  
-          :: So you should put the hidden filed in your submit form ::
-         */
-        if (this.state.id !== "") {
-            path = "role/update";
-            Http.update(path, data).then(res => {
-                if (!res.data.error) {
-                    alert.success(res.data.update)
-                    this.setState({
-                        showCreate: false,
-                        showList: true,
-                        loading: true,
-                    });
-                }else{
-                 alert.error(res.data.error)
-                }
-            })
-        } else {
-            path = "role/save";
-            Http.save(path, data).then(res => {
-                if (!res.data.error) {
-                    alert.success(res.data.success)
-                    this.setState({
-                        showCreate: false,
-                        showList: true,
-                        loading: true,
-                    });
-                }else{
-                    alert.error(res.data.error)
-                }
-            })
-        }
-
-    }
-
-    roleList = () => {
-        const path = "role/list";
-        Http.list(path).then(res => {
-            this.setState({
-                roleList: res.data.roleList,
-                loading: false,
-            })
-        })
-    }
-
-    selectHandler = (id, data) => {
-        let role = JSON.stringify(data)
-        this.setState({
-            id: data.id,
-            name: data.name,
-            remarks: data.remarks,
-            showCreate: true,
-            showList: false
-        })
-    }
-
-    deleteHandler = (id) => {
-        let path = "role/delete";
-        const { alert } = this.props;
-        let data = {
-            roleId: id,
-        }
-        Http.delete(path, data).then(res => {
-            console.log(res)
-            if (!res.data.error) {
-                alert.success(res.data.delete)
-                this.setState({
-                    loading: true,
-                });
-            } else {
-                alert.error(res.data.error)
-            }
-        })
     }
 
 
     render() {
-        const { roleList } = this.state
-        const data = roleList.map((role, index) => {
-            return (
-                <tr key={index + 1}>
-                    <td scope="row">{index + 1}</td>
-                    <td>{role.name}</td>
-                    <td>{role.remarks}</td>
-                    <td style={{ textAlign: "center" }}>
-                        <i className="material-icons" onClick={() => this.selectHandler(role.id, role)}>edit</i>
-                    </td>
-                    <td style={{ textAlign: "center" }}>
-                        <i className="material-icons" onClick={() => this.deleteHandler(role.id)}>delete</i>
-                    </td>
-                </tr>
-            );
-        });
-
         return (
             <div>
                 <section className="content">
@@ -167,7 +67,7 @@ class RoleList extends Component {
                                     <div className="card">
                                         <div className="header">
                                             <h2>
-                                                Role List
+                                                Module List
                                              </h2>
                                             <ul className="header-dropdown m-r--5">
                                                 <button type="button" className="btn bg-teal waves-effect" onClick={this.addNew.bind(this)}>
@@ -186,7 +86,7 @@ class RoleList extends Component {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {data}
+                                                    {/* {data} */}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -202,7 +102,7 @@ class RoleList extends Component {
                                         <div className="card">
                                             <div className="header">
                                                 <h2>
-                                                    Create Role
+                                                    Create Module
                                                 </h2>
                                                 <ul className="header-dropdown m-r--5">
                                                     <li className="dropdown">
@@ -220,7 +120,7 @@ class RoleList extends Component {
                                                     <div className="form-group">
                                                         <div className="form-line">
                                                             <input type="text" id="name" name="name" className="form-control" value={this.state.name}
-                                                                placeholder="Enter your role" onChange={this.onChangeHandler.bind(this)} />
+                                                                placeholder="Enter your module" onChange={this.onChangeHandler.bind(this)} />
                                                         </div>
                                                     </div>
                                                     <label>Remarks</label>
@@ -250,7 +150,4 @@ class RoleList extends Component {
         )
     }
 }
-export default withAlert()(RoleList);
-// export default RoleList;
-
-
+export default Module ;

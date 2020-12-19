@@ -10,7 +10,12 @@ import UserList from './components/user/UserList';
 import RoleList from './components/role/RoleList';
 import UserRoleMap from './components/user/UserRoleMap';
 import AuthService from './services/auth.service';
-
+import ResetPassword from './components/layout/ResetPassword';
+import Module from './components/layout/module/Module';
+import Organization from './components/settings/Organization';
+import Department from './components/settings/Department';
+import Position from './components/settings/Position';
+import Degree from './components/settings/Degree';
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +24,7 @@ class App extends Component {
     this.state = {
     }
   }
+  
 
   render() {
     // console.log(AuthService.getCurrentUser());
@@ -31,14 +37,18 @@ class App extends Component {
               <Navbar />
               <LeftMenu />
               <Switch>
-                {/* <Route exact path="/" component={Login} /> */}
-                {/* <Route exact path="/logIn" component={Login} /> */}
-                {/* <Route exact path="/signUp" component={SignUp} /> */}
                 <Route exact path="/adminDashboard" component={AdminDashboard} />
                 <Route exact path="/forgetPassword" component={ForgetPassword} />
                 <Route exact path="/userList" component={UserList} />
                 <Route exact path="/roleList" component={RoleList} />
                 <Route exact path="/userRoleMap" component={UserRoleMap} />
+                <Route exact path="/resetPassword" component={ResetPassword} />
+                {/* <Route exact path="/module" component={Module}/> */}
+                {/*  for settings  */}
+                <Route exact path="/organization" component={Organization} />
+                <Route exact path="/department" component={Department} />
+                <Route exact path="/position" component={Position} />
+                <Route exact path="/degree" component={Degree} />
               </Switch>
             </Router>
             ) 
