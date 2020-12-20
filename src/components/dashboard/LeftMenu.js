@@ -45,6 +45,9 @@ class LeftMenu extends Component {
                                     <li>
                                         <Link to="/leaveType">Leave Type</Link>
                                     </li>
+                                    <li>
+                                        <Link to="/holiday">Holiday setup</Link>
+                                    </li>
                                 </ul>
                             </li>
 
@@ -52,11 +55,23 @@ class LeftMenu extends Component {
                             <li>
                                 <a href="javascript:void(0)" className="menu-toggle">
                                     <i className="material-icons">weekend</i>
-                                    <span>Leave</span>
+                                    <span>Time and Attendance</span>
                                 </a>
                                 <ul className="ml-menu">
                                     <li>
-                                        <Link to="#">Leave Type</Link>
+                                        <Link to="#">Clock In/Out</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Time Reporting</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Overtime Tracking</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Absence Management</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Holidays Calendar</Link>
                                     </li>
                                 </ul>
                             </li>
@@ -64,11 +79,86 @@ class LeftMenu extends Component {
                             <li>
                                 <a href="javascript:void(0)" className="menu-toggle">
                                     <i className="material-icons">verified_user</i>
-                                    <span>Attendance</span>
+                                    <span>Recruitment and Hiring</span>
                                 </a>
                                 <ul className="ml-menu">
                                     <li>
-                                        <Link to="#">Leave Type</Link>
+                                        <Link to="#">Job Requisitions</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Job Descriptions</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Job Board Posting</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Applicant Evaluation</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Applicant Tracking System</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Candidate Pre-Screening</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Job Offer Extension</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Background Check</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Onboarding</Link>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)" className="menu-toggle">
+                                    <i className="material-icons">verified_user</i>
+                                    <span>Benefits Management</span>
+                                </a>
+                                <ul className="ml-menu">
+                                    <li>
+                                        <Link to="#">Health Insurance</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Life Insurance</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Retirement Plans</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Travel Compensation</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Paid Time Off (PTO)</Link>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)" className="menu-toggle">
+                                    <i className="material-icons">verified_user</i>
+                                    <span>Employee Information</span>
+                                </a>
+                                <ul className="ml-menu">
+                                    <li>
+                                        <Link to="#">Job History</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Salary History</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Disciplinary History</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Insurance Plans</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Banking and Tax Details</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="#">Time Off Used and Accrued</Link>
                                     </li>
                                 </ul>
                             </li>
