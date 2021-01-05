@@ -31,7 +31,6 @@ class Department extends Component {
         })
     }
 
-
     render() {
         return (
             <div>

@@ -18,10 +18,13 @@ class Http {
         return axios.post(API_URL + path, data, { headers: authHeader() });
     }
     list(path) {
-        return axios.get(API_URL + path,{ headers: authHeader() });
+        return axios.get(API_URL + path, { headers: authHeader() });
     }
-    get (path){
-        return axios.get(API_URL + path,{ headers: authHeader() });
+    select(path, data) {
+        return axios.post(API_URL + path, data, { headers: authHeader() });
+    }
+    get(path) {
+        return axios.get(API_URL + path, { headers: authHeader() });
     }
 }
 export default new Http();
