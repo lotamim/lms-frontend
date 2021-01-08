@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import Http from '../../services/http.service';
 import { Multiselect } from 'multiselect-react-dropdown';
 import moment from 'moment';
-import { withAlert } from 'react-alert'
+import { withAlert } from 'react-alert';
+import AuthService from '../../services/auth.service';
 
 
 
@@ -98,7 +99,8 @@ class ResetPassword extends Component {
                     remarks: "",
                 });
                 alert.success(res.data.success);
-
+                AuthService.logout();
+                // window.location.replace("/logIn");
             } else {
                 alert.error(res.data.error);
             }

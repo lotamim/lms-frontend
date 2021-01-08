@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import Auth from '../../services/auth.service'
-import { withAlert } from 'react-alert'
+import $ from 'jquery';
 
 class Login extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            errorMsg: "",
             username: "",
             password: "",
         }
@@ -19,9 +20,15 @@ class Login extends Component {
         })
     }
 
+    handleHideMsg = (event) =>{
+        this.setState({
+            errorMsg : "",
+        })
+    }
+
     onSubmitHandler = (event) => {
         event.preventDefault();
-        const { alert } = this.props;
+        // const { alert } = this.props;
         const userInfo = {
             username: this.state.username,
             password: this.state.password,
@@ -35,9 +42,12 @@ class Login extends Component {
             }
         }).catch(error => {
             if (error.response) {
-                alert.error("You are " + error.response.data.error);
+                this.setState({
+                    errorMsg: error.response.data.error
+                })
+                // alert.error("You are " + error.response.data.error);
             }
-          });
+        });
     }
 
     render() {
@@ -51,7 +61,20 @@ class Login extends Component {
                     <div className="card">
                         <div className="body">
                             <form id="signIn" onSubmit={this.onSubmitHandler.bind(this)}>
-                                {/* <div className="msg">Sign in to start your session</div> */}
+                                {this.state.errorMsg == "" ?
+                                    null 
+                                    : 
+                                    (
+                                        <div className="alert alert-danger" role="alert" style={{textAlign:"center"}} >
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true" onClick={this.handleHideMsg}>×</span>
+                                            </button>
+                                             {"Invalid username or password"}
+                                            {/* {"You are " + this.state.errorMsg} */}
+                                        </div>
+                                    )
+
+                                }
                                 <div className="input-group">
                                     <span className="input-group-addon">
                                         <i className="material-icons">person</i>
@@ -95,4 +118,4 @@ class Login extends Component {
         );
     }
 }
-export default withAlert()(Login);
+export default Login;

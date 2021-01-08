@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import{Link} from 'react-router-dom';
 import axios from "axios";
 import {API_URL} from "../constant/Constants"
-
+import { withAlert } from 'react-alert'
 
 
 class SignUp extends Component {
@@ -23,17 +23,22 @@ class SignUp extends Component {
 
     submitHandler = (event) =>{
         event.preventDefault();
+        const { alert } = this.props;
         let data = {
             username : this.state.username,
             email : this.state.email ,
             password : this.state.password,
         }
         axios.post(API_URL + "signUp",data).then((response)=>{
-           var res = response.data;
-           if(res !=="" ){
+        //    var res = response.data;
+            console.log(response.data.userExit);
+           if(!response.data.userExit){
+               alert.error(response.data.success);
                this.props.history.push('/');
+           }else{
+            alert.error(response.data.userExit);
            }
-           console.log(res);
+        //    console.log(res);
         })
     }
     
@@ -104,4 +109,4 @@ class SignUp extends Component {
         )
     }
 }
-export default SignUp;
+export default  withAlert()(SignUp);
