@@ -30,15 +30,12 @@ class SignUp extends Component {
             password : this.state.password,
         }
         axios.post(API_URL + "signUp",data).then((response)=>{
-        //    var res = response.data;
-            console.log(response.data.userExit);
            if(!response.data.userExit){
-               alert.error(response.data.success);
+               alert.success(response.data.success);
                this.props.history.push('/');
            }else{
             alert.error(response.data.userExit);
            }
-        //    console.log(res);
         })
     }
     
