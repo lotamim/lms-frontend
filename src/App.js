@@ -16,6 +16,7 @@ import Organization from './components/settings/Organization';
 import Department from './components/settings/Department';
 import Position from './components/settings/Position';
 import Degree from './components/settings/Degree';
+import RoleReport from './components/reports/RoleReport'
 
 class App extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class App extends Component {
                 <Route exact path="/department" component={Department} />
                 <Route exact path="/position" component={Position} />
                 <Route exact path="/degree" component={Degree} />
+                <Route exact path="/roleReport" component={RoleReport} />
               </Switch>
             </Router>
             ) 

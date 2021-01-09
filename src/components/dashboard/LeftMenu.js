@@ -192,6 +192,19 @@ class LeftMenu extends Component {
                                     </li>
                                 </ul>
                             </li>
+
+                            <li>
+                                <a href="#" className="menu-toggle">
+                                    <i className="material-icons">group</i>
+                                    <span>Report</span>
+                                </a>
+                                <ul className="ml-menu">
+                                    <li>
+                                        <Link to="/roleReport">RoleReports</Link>
+                                    </li>
+                                </ul>
+                            </li>
+                            
                         </ul>
                     </div>
                     <div className="legal">
