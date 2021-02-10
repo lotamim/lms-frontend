@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { API_URL } from '../constant/Constants';
 import Http from '../../services/http.service';
+import Auth from '../../services/auth.service';
+
 
 
 
@@ -28,9 +30,10 @@ class RoleReport extends Component {
     }
 
     reportHandleer = (evnt) => {
-        const path = "report/pdf";
+        const username = Auth.getCurrentUser().username
+        const path = "report/roleReport";
         window.open(API_URL+path)
-        // alert("::::");
+        // alert(username);
     }
 
     // userList = () => {

@@ -11,6 +11,8 @@ class Navbar extends Component {
 
         }
     }
+    componentDidMount = ()=>{
+    }
 
     clickHandler = () => {
         let logout = Auth.logout();

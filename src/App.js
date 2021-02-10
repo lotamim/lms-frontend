@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import LeftMenu from './components/dashboard/LeftMenu';
 import Navbar from './components/dashboard/Navbar';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import Login from './components/layout/Login';
 import SignUp from './components/layout/SignUp';
 import ForgetPassword from './components/layout/ForgetPassword'
@@ -17,6 +17,9 @@ import Department from './components/settings/Department';
 import Position from './components/settings/Position';
 import Degree from './components/settings/Degree';
 import RoleReport from './components/reports/RoleReport'
+import Menu from "./components/dashboard/Menu";
+import MenuItem from "./components/dashboard/MenuItem";
+import Permission from "./components/dashboard/Permission";
 
 class App extends Component {
   constructor(props) {
@@ -25,7 +28,7 @@ class App extends Component {
     this.state = {
     }
   }
-  
+
 
   render() {
     // console.log(AuthService.getCurrentUser());
@@ -44,22 +47,26 @@ class App extends Component {
                 <Route exact path="/roleList" component={RoleList} />
                 <Route exact path="/userRoleMap" component={UserRoleMap} />
                 <Route exact path="/resetPassword" component={ResetPassword} />
-                {/* <Route exact path="/module" component={Module}/> */}
+                <Route exact path="/menu" component={Menu} />
+                <Route exact path="/menuItem" component={MenuItem} />
+                <Route exact path="/permission" component={Permission} />
                 {/*  for settings  */}
                 <Route exact path="/organization" component={Organization} />
                 <Route exact path="/department" component={Department} />
                 <Route exact path="/position" component={Position} />
                 <Route exact path="/degree" component={Degree} />
-                <Route exact path="/roleReport" component={RoleReport} />
+                <Route exact path="/rolereport" component={RoleReport} />
+                {/* <Route component={PageNotFound} /> */}
               </Switch>
             </Router>
-            ) 
+          )
           : (
             <Router>
               <Switch>
                 <Route exact path="/" component={Login} />
                 <Route exact path="/logIn" component={Login} />
                 <Route exact path="/signUp" component={SignUp} />
+                <Route component={NoMatchURL} />
               </Switch>
             </Router>
           )
@@ -70,3 +77,13 @@ class App extends Component {
 }
 
 export default App;
+
+const NoMatchURL = () => {
+  return (
+    <Redirect to="/" />
+  );
+};
+
+
+{/* <Redirect to="/" /> */ }
+{/* <h3>404 - Not found</h3> */ }
