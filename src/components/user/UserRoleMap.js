@@ -7,7 +7,7 @@ import Http from '../../services/http.service';
 import { API_URL } from '../constant/Constants';
 import { Multiselect } from 'multiselect-react-dropdown';
 import { withAlert } from 'react-alert';
-
+import $ from 'jquery';
 
 class UserRoleMap extends Component {
 
@@ -21,6 +21,9 @@ class UserRoleMap extends Component {
             loading: true,
             showList: true,
             showCreate: false,
+            selectedRoleValues: [],
+            selectedUserValues: [],
+            id : "",
         }
         this.singleRef = React.createRef();
         this.multiRef = React.createRef();
@@ -32,13 +35,13 @@ class UserRoleMap extends Component {
         this.mappingList();
     }
 
-    componentDidUpdate = (pP,pS,sS) => {
-         if(this.state.loading !== pS.loading){
+    componentDidUpdate = (pP, pS, sS) => {
+        if (this.state.loading !== pS.loading) {
             this.mappingList();
             this.setState({
-                loading : false,
+                loading: false,
             })
-         }
+        }
     }
 
     addNew = () => {
@@ -52,6 +55,9 @@ class UserRoleMap extends Component {
         this.setState({
             showCreate: false,
             showList: true,
+            id: "",
+            selectedRoleValues :[], 
+            selectedUserValues : []
         })
     }
 
@@ -78,16 +84,18 @@ class UserRoleMap extends Component {
     onSubmitHandler = (event) => {
         event.preventDefault();
         const { alert } = this.props;
-        const path = "userRoleMapping/save";
-        var roleList = [];
         var data = new FormData();
+        var path = "userRoleMapping/save";
+        if(this.state.id !== ""){
+            path = "userRoleMapping/update";
+            data.append("id",this.state.id)
+        }
         this.singleRef.current.getSelectedItems().map((user) => {
             data.append("username", user.username);
         });
         this.multiRef.current.getSelectedItems().map((role) => {
-            roleList.push(role.name);
+            data.append("name", role.name);
         });
-        data.append("roleList", roleList)
         Http.save(path, data).then((res) => {
             if (!res.data.error) {
                 this.setState({
@@ -100,12 +108,6 @@ class UserRoleMap extends Component {
                 alert.error(res.data.error);
             }
         });
-
-        // for (var value of data.values()) {
-        //     console.log(value);
-        //  }
-        // console.log(data);
-
     }
 
     mappingList = () => {
@@ -115,8 +117,21 @@ class UserRoleMap extends Component {
                 roleMappingList: res.data,
                 loading: false
             })
-            //   console.log(res.data);
         });
+    }
+
+    selectHandler = (roleMappingId, roleMapping) => {
+        this.addNew();
+        this.setState({
+            selectedRoleValues: [...this.state.selectedRoleValues, { 'name': roleMapping.name }],
+            selectedUserValues :[...this.state.selectedUserValues, { 'username': roleMapping.username }],
+            id : roleMappingId
+        });
+    }
+
+    resetValues = () => {
+        this.singleRef.current.resetSelectedValues();
+        this.multiRef.current.resetSelectedValues();
     }
 
     render() {
@@ -125,8 +140,11 @@ class UserRoleMap extends Component {
             return (
                 <tr key={index + 1}>
                     <td scope="row">{index + 1}</td>
-                    <td>{roleMapping.user_name}</td>
-                    <td>{roleMapping.role_name}</td>
+                    <td>{roleMapping.username}</td>
+                    <td>{roleMapping.name}</td>
+                    <td style={{ textAlign: "center" }}>
+                        <i className="material-icons" onClick={() => this.selectHandler(roleMapping.id, roleMapping)}>edit</i>
+                    </td>
                 </tr>
             );
         });
@@ -155,6 +173,7 @@ class UserRoleMap extends Component {
                                                         <th>SL No.</th>
                                                         <th>User Name</th>
                                                         <th>Role Name</th>
+                                                        <th colSpan="2" style={{ textAlign: "center" }}>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -186,12 +205,14 @@ class UserRoleMap extends Component {
                                             </div>
                                             <div className="body">
                                                 <form onSubmit={this.onSubmitHandler.bind(this)}>
+                                                    <input type="hidden" value={this.state.id} className="id" id="id"/>
                                                     <label>User Name</label>
                                                     <div className="form-group">
                                                         <Multiselect
                                                             options={this.state.userList}
                                                             singleSelect
                                                             ref={this.singleRef}
+                                                            selectedValues={this.state.selectedUserValues}
                                                             displayValue="username"
                                                         />
                                                     </div>
@@ -199,6 +220,8 @@ class UserRoleMap extends Component {
                                                     <label>Role</label>
                                                     <div className="form-group">
                                                         <Multiselect
+                                                            selectedValues={this.state.selectedRoleValues}
+                                                            singleSelect
                                                             options={this.state.roleList}
                                                             ref={this.multiRef}
                                                             displayValue="name"
@@ -206,7 +229,12 @@ class UserRoleMap extends Component {
                                                     </div>
 
                                                     <br />
-                                                    <button type="submit" className="btn bg-pink waves-effect">Save</button>
+                                                     {this.state.id ==""?
+                                                      (<button type="submit" className="btn bg-pink waves-effect">Save</button>)
+                                                      :
+                                                       (<button type="submit" className="btn bg-pink waves-effect">update</button>)
+                                                     }
+                                                    
                                                 </form>
                                             </div>
                                         </div>
