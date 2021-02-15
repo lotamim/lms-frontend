@@ -161,7 +161,7 @@ class UserRoleMap extends Component {
                                                 User Role Map
                                         </h2>
                                             <ul className="header-dropdown m-r--5">
-                                                <button type="button" class="btn bg-teal waves-effect" onClick={this.addNew.bind(this)}>
+                                                <button type="button" className="btn bg-teal waves-effect" onClick={this.addNew.bind(this)}>
                                                     +
                                             </button>
                                             </ul>

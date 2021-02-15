@@ -336,8 +336,8 @@ $.AdminBSB.dropdownMenu = {
         });
 
         //Set Waves
-        Waves.attach('.dropdown-menu li a', ['waves-block']);
-        Waves.init();
+        // Waves.attach('.dropdown-menu li a', ['waves-block']);
+        // Waves.init();
     },
     dropdownEffect: function (target) {
         var effectIn = $.AdminBSB.options.dropdownMenu.effectIn, effectOut = $.AdminBSB.options.dropdownMenu.effectOut;
@@ -402,7 +402,8 @@ $.AdminBSB.browser = {
     },
     getBrowser: function () {
         var userAgent = navigator.userAgent.toLowerCase();
-
+        console.log(userAgent);
+        console.log("HI");
         if (/edge/i.test(userAgent)) {
             return edge;
         } else if (/rv:11/i.test(userAgent)) {
@@ -446,14 +447,14 @@ $.AdminBSB.browser = {
 //==========================================================================================================================
 
 $(function () {
-    $.AdminBSB.browser.activate();
+    // $.AdminBSB.browser.activate();
     $.AdminBSB.leftSideBar.activate();
-    $.AdminBSB.rightSideBar.activate();
-    $.AdminBSB.navbar.activate();
+    // $.AdminBSB.rightSideBar.activate();
+    // $.AdminBSB.navbar.activate();
     $.AdminBSB.dropdownMenu.activate();
-    $.AdminBSB.input.activate();
-    $.AdminBSB.select.activate();
-    $.AdminBSB.search.activate();
+    // $.AdminBSB.input.activate();
+    // $.AdminBSB.select.activate();
+    // $.AdminBSB.search.activate();
 
     // setTimeout(function () { $('.page-loader-wrapper').fadeOut(); }, 50);
 });
