@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Http from '../../services/http.service';
 import { withAlert } from 'react-alert';
+import * as CommonConstant from '../constant/Constants';
+import ReactPaginate from 'react-paginate';
 
 class MenuItem extends Component {
     constructor(props) {
@@ -15,7 +17,8 @@ class MenuItem extends Component {
             menuId: "",
             menuItemName: "",
             menuItemRemarks: "",
-            path : ""
+            path: "",
+            currentPage: 1
         }
     }
 
@@ -57,7 +60,6 @@ class MenuItem extends Component {
     menuList = () => {
         const path = "menu/list";
         Http.get(path).then(res => {
-            // console.log(res.data.menuList);
             this.setState({
                 menuList: res.data.menuList,
                 loading: false,
@@ -97,6 +99,12 @@ class MenuItem extends Component {
         });
     }
 
+    handlePagination = (e) => {
+        this.setState({
+            currentPage: e.selected + 1,
+        });
+    };
+
     selectHandler = (id, data) => {
         // alert(JSON.stringify(data))
         // let menu = JSON.stringify(data)
@@ -119,29 +127,35 @@ class MenuItem extends Component {
     }
 
     render() {
-        const { menuList,menuItemList } = this.state;
+        const { menuList, menuItemList, currentPage } = this.state;
+
+        const indexOfLast = currentPage * CommonConstant.PAGINATION.PER_PAGE;
+        const indexOfFirst = indexOfLast - CommonConstant.PAGINATION.PER_PAGE;
+        const currentMenuList = menuItemList.slice(indexOfFirst, indexOfLast);
+        const pageCount = Math.ceil(menuItemList.length / CommonConstant.PAGINATION.PER_PAGE);
+
         let dropDown = menuList.map((menu, index) => {
             return (
                 <option value={menu.id}>{menu.menuName}</option>
             )
         })
 
-      let list = menuItemList.map((menuItem,index)=>{
-          return (
-            <tr key={index + 1}>
-            <td scope="row">{index + 1}</td>
-            <td>{menuItem.menu_name}</td>
-            <td>{menuItem.menu_item_name}</td>
-            <td style={{ textAlign: "center" }}>
-                <i className="material-icons" onClick={() => this.selectHandler(menuItem.menu_item_id,menuItem)}>edit</i>
-            </td>
-            <td style={{ textAlign: "center" }}>
-                <i className="material-icons" onClick={() => this.deleteHandler(menuItem.menu_item_id)}>delete</i>
-            </td>
-        </tr>
-          );
-      });
-        
+        let list = currentMenuList.map((menuItem, index) => {
+            return (
+                <tr key={indexOfFirst + (index + 1)}>
+                    <td scope="row">{indexOfFirst + (index + 1)}</td>
+                    <td>{menuItem.menu_name}</td>
+                    <td>{menuItem.menu_item_name}</td>
+                    <td style={{ textAlign: "center" }}>
+                        <i className="material-icons" onClick={() => this.selectHandler(menuItem.menu_item_id, menuItem)}>edit</i>
+                    </td>
+                    <td style={{ textAlign: "center" }}>
+                        <i className="material-icons" onClick={() => this.deleteHandler(menuItem.menu_item_id)}>delete</i>
+                    </td>
+                </tr>
+            );
+        });
+
 
         return (
             <div>
@@ -175,6 +189,23 @@ class MenuItem extends Component {
                                                     {list}
                                                 </tbody>
                                             </table>
+                                            <nav>
+                                                <ul class="pager">
+                                                    <ReactPaginate
+                                                        previousLabel={'Previous'}
+                                                        nextLabel={'Next'}
+                                                        breakLabel={'...'}
+                                                        breakClassName={'break-me'}
+                                                        pageCount={pageCount}
+                                                        // marginPagesDisplayed={2}
+                                                        // pageRangeDisplayed={5}
+                                                        onPageChange={this.handlePagination.bind(this)}
+                                                        containerClassName={'pagination'}
+                                                        subContainerClassName={'pages pagination'}
+                                                        activeClassName={'active'}
+                                                    />
+                                                </ul>
+                                            </nav>
                                         </div>
                                     </div>
                                 </div>

@@ -336,8 +336,8 @@ $.AdminBSB.dropdownMenu = {
         });
 
         //Set Waves
-        // Waves.attach('.dropdown-menu li a', ['waves-block']);
-        // Waves.init();
+        Waves.attach('.dropdown-menu li a', ['waves-block']);
+        Waves.init();
     },
     dropdownEffect: function (target) {
         var effectIn = $.AdminBSB.options.dropdownMenu.effectIn, effectOut = $.AdminBSB.options.dropdownMenu.effectOut;

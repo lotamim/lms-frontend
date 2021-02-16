@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from "react-router-dom";
 import Http from '../../services/http.service';
 import { withAlert } from 'react-alert';
+import Auth from "../../services/auth.service";
 import $ from 'jquery'
 
 class LeftMenu extends Component {
@@ -9,6 +10,7 @@ class LeftMenu extends Component {
         super(props)
 
         this.state = {
+            role: "",
             menuList: [],
             menuItemList: [],
             loading: '',
@@ -22,6 +24,7 @@ class LeftMenu extends Component {
         script.src = "assets/js/admin.js";
         script.async = true;
         document.body.appendChild(script);
+
     }
 
     menuList = () => {
@@ -43,18 +46,12 @@ class LeftMenu extends Component {
         });
     }
 
-    expandAndCollapse = (event,menuItem)=>{
-        // console.log(event.target.className);
-        // $('#'+event.target.id).addClass('menu-toggle toggled');
-        // $(this).event.className.append("toggled");
-        // console.log(event)
-        // alert(event);
+    expandAndCollapse = (event, menuItem) => {
     }
 
 
     render() {
         const { menuList, menuItemList } = this.state;
-
         // const loadMenu = menuList.map((menu, index) => {
         //     return (
         //         menuItemList.map((menuItem, index) => {
@@ -102,8 +99,8 @@ class LeftMenu extends Component {
                                         if (menuItem.menu_name === menu.menuName) {
                                             let menuItemSplit = menuItem.menu_item_name.split(",");
                                             return (
-                                                <li key={menuIndex++} onClick={(event)=>this.expandAndCollapse(event,menuIndex)}>
-                                                    <a href="#" className="menu-toggle" id={menu.menuName+"_"+menuIndex}>
+                                                <li key={menuIndex++} onClick={(event) => this.expandAndCollapse(event, menuIndex)}>
+                                                    <a href="#" className="menu-toggle" id={menu.menuName + "_" + menuIndex}>
                                                         <i className="material-icons">settings</i>
                                                         <span>{menu.menuName}</span>
                                                     </a>
@@ -125,57 +122,42 @@ class LeftMenu extends Component {
                             })
                             }
 
-                           {/* {menuList.length>0? */}
-                             <li>
-                             <a href="#" className="menu-toggle">
-                                 <i className="material-icons">group</i>
-                                 <span>User Management</span>
-                             </a>
-                             <ul className="ml-menu">
-                                 <li>
-                                     <Link to="/userList">User</Link>
-                                 </li>
-                                 <li>
-                                     <Link to="/roleList">Role</Link>
-                                 </li>
-                                 <li>
-                                     <Link to="/userRoleMap">User Role Mapping</Link>
-                                 </li>
-                                 <li>
-                                     <Link to="/menu">Menu</Link>
-                                 </li>
-                                 <li>
-                                     <Link to="/menuItem">Menu Item</Link>
-                                 </li>
-                                 <li>
-                                     <Link to="/permission">Permission</Link>
-                                 </li>
-                                 <li>
-                                     <Link to="/resetPassword">Reset Password</Link>
-                                 </li>
-                             </ul>
-                         </li>
-                           {/* : null
-                           } */}
-                            
 
-                            {/* <li>
+                             {/* <li>
                                 <a href="#" className="menu-toggle">
                                     <i className="material-icons">group</i>
-                                    <span>Report</span>
+                                    <span>User Management</span>
                                 </a>
                                 <ul className="ml-menu">
                                     <li>
-                                        <Link to="/roleReport">RoleReports</Link>
+                                        <Link to="/userList">User</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/roleList">Role</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/userRoleMap">User Role Mapping</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/menu">Menu</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/menuItem">Menu Item</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/permission">Permission</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/resetPassword">Reset Password</Link>
                                     </li>
                                 </ul>
-                            </li> */}
+                            </li>  */}
 
                         </ul>
                     </div>
                     <div className="legal">
                         <div className="copyright">
-                            &copy; 2020 - 2021 <a href="#">Newgen Technology Ltd.</a>.
+                            &copy; 2021 - 2022 <a href="#">Newgen Technology Ltd.</a>.
                     </div>
                     </div>
                 </aside>

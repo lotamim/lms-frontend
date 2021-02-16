@@ -41,12 +41,17 @@ class Login extends Component {
                 // window.location.reload("/adminDashboard");
             }
         }).catch(error => {
-            if (error.response) {
+            if (error.response !== undefined) {
                 this.setState({
-                    errorMsg: error.response.data.error
+                    // errorMsg: error.response.data.error
+                    errorMsg: "Invalid username or password"
                 })
-                // alert.error("You are " + error.response.data.error);
+            }else{
+                this.setState({
+                    errorMsg: "CONNECTION FAILED !"
+                })
             }
+             
         });
     }
 
@@ -69,7 +74,7 @@ class Login extends Component {
                                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                                 <span aria-hidden="true" onClick={this.handleHideMsg}>×</span>
                                             </button>
-                                             {"Invalid username or password"}
+                                             {this.state.errorMsg}
                                             {/* {"You are " + this.state.errorMsg} */}
                                         </div>
                                     )

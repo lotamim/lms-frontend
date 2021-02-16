@@ -171,7 +171,7 @@ class Permission extends Component {
                                                             {items.map((item, index) => {
                                                                 var myBool = Boolean(item.split("_")[2]);
                                                                 return (
-                                                                    <div className="col-md-3" key={index + index + 1}>
+                                                                    <div className="col-md-4" key={index + index + 1}>
                                                                         <div>
                                                                             {
                                                                                 

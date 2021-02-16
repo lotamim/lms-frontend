@@ -37,6 +37,12 @@ class AuthService {
     }
     return false;
   }
+
+  getRole = () => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    return user.username+" ["+user.authorites[0].authority+"]" ;
+  }
+
 }
 
 export default new AuthService();

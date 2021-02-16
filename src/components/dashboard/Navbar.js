@@ -8,10 +8,11 @@ class Navbar extends Component {
         super(props)
 
         this.state = {
-
+            role: "",
         }
     }
     componentDidMount = ()=>{
+        this.getRole();
     }
 
     clickHandler = () => {
@@ -19,6 +20,12 @@ class Navbar extends Component {
         if (logout == undefined) {
             window.location.replace("/logIn");
         }
+    }
+
+    getRole = () => {
+        this.setState({
+            role: Auth.getRole(),
+        });
     }
 
     render() {
@@ -44,7 +51,11 @@ class Navbar extends Component {
                         <ul className="nav navbar-nav navbar-right">
 
                             <li className="pull-right">
-                                <i className="material-icons" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">keyboard_arrow_down</i>
+                                {/* <span> {this.state.role} </span> */}
+                                <i className="material-icons" data-toggle="dropdown" title={"Welcome "+this.state.role} aria-haspopup="true" aria-expanded="true">
+                                    keyboard_arrow_down
+                                    {/* <i data-toggle="tooltip" data-placement="bottom" title="Tooltip on bottom"></i> */}
+                                </i>
                                 <ul className="dropdown-menu pull-right">
                                     {/* <li><a href="#"><i className="material-icons">person</i>Profile</a></li> */}
                                     {/* <li role="seperator" className="divider"></li> */}
