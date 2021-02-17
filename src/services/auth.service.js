@@ -40,7 +40,12 @@ class AuthService {
 
   getRole = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    return user.username+" ["+user.authorites[0].authority+"]" ;
+    var authority= user.authorites[0].authority;
+    if(authority == undefined){
+      return  "";
+    }else{
+      return user.username+" ["+user.authorites[0].authority+"]" ;
+    }
   }
 
 }

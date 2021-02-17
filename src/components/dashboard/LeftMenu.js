@@ -23,7 +23,7 @@ class LeftMenu extends Component {
         const script = document.createElement("script");
         script.src = "assets/js/admin.js";
         script.async = true;
-        document.body.appendChild(script);
+        document.head.appendChild(script);
 
     }
 
