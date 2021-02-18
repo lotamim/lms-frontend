@@ -22,8 +22,8 @@ class LeftMenu extends Component {
         this.dynamicMenuItem();
         const script = document.createElement("script");
         script.src = "assets/js/admin.js";
-        script.async = true;
-        document.head.appendChild(script);
+        script.async = false;
+        document.body.appendChild(script);
 
     }
 
