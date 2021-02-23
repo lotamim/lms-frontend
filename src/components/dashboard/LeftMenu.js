@@ -13,7 +13,7 @@ class LeftMenu extends Component {
             role: "",
             menuList: [],
             menuItemList: [],
-            loading: '',
+            loading: true,
         }
     }
 
@@ -22,9 +22,17 @@ class LeftMenu extends Component {
         this.dynamicMenuItem();
         const script = document.createElement("script");
         script.src = "assets/js/admin.js";
-        script.async = false;
         document.body.appendChild(script);
+    }
 
+    componentDidUpdate = (prevProps, prevState)=>{
+        if (this.state.loading !== prevState.loading) {
+            this.menuList();
+            this.dynamicMenuItem();
+            this.setState({
+                loading: false,
+            })
+        }
     }
 
     menuList = () => {
@@ -38,10 +46,11 @@ class LeftMenu extends Component {
     }
 
     dynamicMenuItem = () => {
-        var path = "menuItem/dynamicMenuItem";
+        const path = "menuItem/dynamicMenuItem";
         Http.get(path).then((res) => {
             this.setState({
-                menuItemList: res.data.list
+                menuItemList: res.data.list,
+                loading: false
             })
         });
     }
@@ -100,7 +109,7 @@ class LeftMenu extends Component {
                                             let menuItemSplit = menuItem.menu_item_name.split(",");
                                             return (
                                                 <li key={menuIndex++} onClick={(event) => this.expandAndCollapse(event, menuIndex)}>
-                                                    <a href="#" className="menu-toggle" id={menu.menuName + "_" + menuIndex}>
+                                                    <a href='javascript::void(0)' className="menu-toggle" id={menu.menuName + "_" + menuIndex}>
                                                         <i className="material-icons">settings</i>
                                                         <span>{menu.menuName}</span>
                                                     </a>
