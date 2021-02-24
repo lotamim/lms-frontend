@@ -161,7 +161,6 @@ class LeftMenu extends Component {
                                     </li>
                                 </ul>
                             </li>  */}
-
                         </ul>
                     </div>
                     <div className="legal">
