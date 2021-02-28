@@ -1,22 +1,28 @@
-import React, { Component } from 'react'
-import LeftMenu from './components/dashboard/LeftMenu';
-import Navbar from './components/dashboard/Navbar';
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import Login from './components/layout/Login';
-import SignUp from './components/layout/SignUp';
-import ForgetPassword from './components/layout/ForgetPassword'
-import AdminDashboard from './components/dashboard/AdminDashboard';
-import UserList from './components/user/UserList';
-import RoleList from './components/role/RoleList';
-import UserRoleMap from './components/user/UserRoleMap';
-import AuthService from './services/auth.service';
-import ResetPassword from './components/layout/ResetPassword';
-import Module from './components/layout/module/Module';
-import Organization from './components/settings/Organization';
-import Department from './components/settings/Department';
-import Position from './components/settings/Position';
-import Degree from './components/settings/Degree';
-import RoleReport from './components/reports/RoleReport'
+import React, { Component } from "react";
+import LeftMenu from "./components/dashboard/LeftMenu";
+import Navbar from "./components/dashboard/Navbar";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import Login from "./components/layout/Login";
+import SignUp from "./components/layout/SignUp";
+import ForgetPassword from "./components/layout/ForgetPassword";
+import AdminDashboard from "./components/dashboard/AdminDashboard";
+import UserList from "./components/user/UserList";
+import RoleList from "./components/role/RoleList";
+import UserRoleMap from "./components/user/UserRoleMap";
+import AuthService from "./services/auth.service";
+import ResetPassword from "./components/layout/ResetPassword";
+import Module from "./components/layout/module/Module";
+import Organization from "./components/settings/Organization";
+import Department from "./components/settings/Department";
+import Position from "./components/settings/Position";
+import Degree from "./components/settings/Degree";
+import Bank from "./components/settings/Bank";
+import RoleReport from "./components/reports/RoleReport";
 import Menu from "./components/dashboard/Menu";
 import MenuItem from "./components/dashboard/MenuItem";
 import Permission from "./components/dashboard/Permission";
@@ -24,18 +30,15 @@ import Branch from "./components/settings/Branch";
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.state = {
-    }
+    this.state = {};
   }
-
 
   render() {
     // console.log(AuthService.getCurrentUser());
     return (
       <div className="theme-red">
-
         {AuthService.getCurrentUser() !== null ?
           (
             <Router>
@@ -81,11 +84,12 @@ class App extends Component {
 export default App;
 
 const NoMatchURL = () => {
-  return (
-    <Redirect to="/" />
-  );
+  return <Redirect to="/" />;
 };
 
-
-{/* <Redirect to="/" /> */ }
-{/* <h3>404 - Not found</h3> */ }
+{
+  /* <Redirect to="/" /> */
+}
+{
+  /* <h3>404 - Not found</h3> */
+}
