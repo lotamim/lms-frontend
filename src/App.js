@@ -61,6 +61,7 @@ class App extends Component {
                 <Route exact path="/degree" component={Degree} />
                 <Route exact path="/rolereport" component={RoleReport} />
                 <Route exact path="/branch" component={Branch}/>
+                <Route exact path="/bank" component={Branch}/>
                 {/* <Route component={PageNotFound} /> */}
               </Switch>
             </Router>
