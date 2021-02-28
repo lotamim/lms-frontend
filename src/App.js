@@ -26,6 +26,7 @@ import RoleReport from "./components/reports/RoleReport";
 import Menu from "./components/dashboard/Menu";
 import MenuItem from "./components/dashboard/MenuItem";
 import Permission from "./components/dashboard/Permission";
+import Branch from "./components/settings/Branch";
 
 class App extends Component {
   constructor(props) {
@@ -38,40 +39,43 @@ class App extends Component {
     // console.log(AuthService.getCurrentUser());
     return (
       <div className="theme-red">
-        {AuthService.getCurrentUser() !== null ? (
-          <Router>
-            <Navbar />
-            <LeftMenu />
-            <Switch>
-              <Route exact path="/adminDashboard" component={AdminDashboard} />
-              <Route exact path="/forgetPassword" component={ForgetPassword} />
-              <Route exact path="/userList" component={UserList} />
-              <Route exact path="/roleList" component={RoleList} />
-              <Route exact path="/userRoleMap" component={UserRoleMap} />
-              <Route exact path="/resetPassword" component={ResetPassword} />
-              <Route exact path="/menu" component={Menu} />
-              <Route exact path="/menuItem" component={MenuItem} />
-              <Route exact path="/permission" component={Permission} />
-              {/*  for settings  */}
-              <Route exact path="/organization" component={Organization} />
-              <Route exact path="/department" component={Department} />
-              <Route exact path="/position" component={Position} />
-              <Route exact path="/degree" component={Degree} />
-              <Route exact path="/rolereport" component={RoleReport} />
-              <Route exact path="/bank" component={Bank} />
-              {/* <Route component={PageNotFound} /> */}
-            </Switch>
-          </Router>
-        ) : (
-          <Router>
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route exact path="/logIn" component={Login} />
-              <Route exact path="/signUp" component={SignUp} />
-              <Route component={NoMatchURL} />
-            </Switch>
-          </Router>
-        )}
+        {AuthService.getCurrentUser() !== null ?
+          (
+            <Router>
+              <Navbar />
+              <LeftMenu />
+              <Switch>
+                <Route exact path="/adminDashboard" component={AdminDashboard} />
+                <Route exact path="/forgetPassword" component={ForgetPassword} />
+                <Route exact path="/userList" component={UserList} />
+                <Route exact path="/roleList" component={RoleList} />
+                <Route exact path="/userRoleMap" component={UserRoleMap} />
+                <Route exact path="/resetPassword" component={ResetPassword} />
+                <Route exact path="/menu" component={Menu} />
+                <Route exact path="/menuItem" component={MenuItem} />
+                <Route exact path="/permission" component={Permission} />
+                {/*  for settings  */}
+                <Route exact path="/organization" component={Organization} />
+                <Route exact path="/department" component={Department} />
+                <Route exact path="/position" component={Position} />
+                <Route exact path="/degree" component={Degree} />
+                <Route exact path="/rolereport" component={RoleReport} />
+                <Route exact path="/branch" component={Branch}/>
+                {/* <Route component={PageNotFound} /> */}
+              </Switch>
+            </Router>
+          )
+          : (
+            <Router>
+              <Switch>
+                <Route exact path="/" component={Login} />
+                <Route exact path="/logIn" component={Login} />
+                <Route exact path="/signUp" component={SignUp} />
+                <Route component={NoMatchURL} />
+              </Switch>
+            </Router>
+          )
+        }
       </div>
     );
   }
