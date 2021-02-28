@@ -25,3 +25,8 @@
 .pagination li.active a {
   background-color: #009688 !important;
 }
+
+.required:after {
+  content:" *";
+  color: red;
+}

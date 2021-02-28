@@ -20,6 +20,7 @@ import RoleReport from './components/reports/RoleReport'
 import Menu from "./components/dashboard/Menu";
 import MenuItem from "./components/dashboard/MenuItem";
 import Permission from "./components/dashboard/Permission";
+import Branch from "./components/settings/Branch";
 
 class App extends Component {
   constructor(props) {
@@ -56,6 +57,7 @@ class App extends Component {
                 <Route exact path="/position" component={Position} />
                 <Route exact path="/degree" component={Degree} />
                 <Route exact path="/rolereport" component={RoleReport} />
+                <Route exact path="/branch" component={Branch}/>
                 {/* <Route component={PageNotFound} /> */}
               </Switch>
             </Router>
