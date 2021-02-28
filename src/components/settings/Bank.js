@@ -32,7 +32,7 @@ class Bank extends Component {
     }
   };
 
-  clearField = () => {
+  resetFormFiled = () => {
     this.setState({
       id: "",
       bankName: "",
@@ -42,7 +42,7 @@ class Bank extends Component {
   };
 
   addNew = () => {
-    this.clearField();
+    this.resetFormFiled();
     this.setState({
       showCreate: true,
       showList: false,
@@ -50,7 +50,7 @@ class Bank extends Component {
   };
 
   backToList = () => {
-    this.clearField();
+    this.resetFormFiled();
     this.setState({
       showCreate: false,
       showList: true,
@@ -107,6 +107,24 @@ class Bank extends Component {
       description: data.description,
       showCreate: true,
       showList: false,
+    });
+  };
+
+  deleteHandler = (id) => {
+    let path = "bank/delete";
+    const { alert } = this.props;
+    let data = {
+      id: id,
+    };
+    Http.delete(path, data).then((res) => {
+      if (!res.data.error) {
+        alert.success(res.data.success);
+        this.setState({
+          loading: true,
+        });
+      } else {
+        alert.error(res.data.error);
+      }
     });
   };
 
@@ -284,7 +302,7 @@ class Bank extends Component {
                               Update
                             </button>
                             <button
-                              onClick={this.backToList.bind(this)}
+                              onClick={this.resetFormFiled.bind(this)}
                               className="btn bg-pink waves-effect"
                             >
                               Cancel
