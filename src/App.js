@@ -27,6 +27,7 @@ import Menu from "./components/dashboard/Menu";
 import MenuItem from "./components/dashboard/MenuItem";
 import Permission from "./components/dashboard/Permission";
 import Branch from "./components/settings/Branch";
+import Account from './components/settings/Account';
 
 class App extends Component {
   constructor(props) {
