@@ -3,29 +3,27 @@ import Http from "../../services/http.service";
 import { withAlert } from "react-alert";
 import $ from "jquery";
 
-class Bank extends Component {
+class LoanSubType extends Component {
   constructor(props) {
     super(props);
     this.state = {
       id: "",
-      bankList: [],
+      loanSubTypeList: [],
       loading: true,
       showList: true,
       showCreate: false,
-      bankName: "",
-      bankShortName: "",
+      loanSubTypeName: "",
       description: "",
     };
   }
 
   componentDidMount = () => {
-    this.getBankList();
+    this.getLoanSubTypeList();
   };
 
   componentDidUpdate = (prevProps, prevState, sS) => {
     if (this.state.loading !== prevState.loading) {
-      this.getBankList();
-      //   console.log(this.state.loading + "" + prevState.loading);
+      this.getLoanSubTypeList();
       this.setState({
         loading: false,
       });
@@ -35,8 +33,7 @@ class Bank extends Component {
   resetFormFiled = () => {
     this.setState({
       id: "",
-      bankName: "",
-      bankShortName: "",
+      loanSubTypeName: "",
       description: "",
     });
   };
@@ -63,12 +60,12 @@ class Bank extends Component {
     });
   };
 
-  getBankList = () => {
-    const path = "bank/list";
+  getLoanSubTypeList = () => {
+    const path = "loanSubType/list";
     Http.list(path).then((res) => {
       if (!res.data.error) {
         this.setState({
-          bankList: res.data.bankList,
+          loanSubTypeList: res.data.loanSubTypeList,
           loading: false,
         });
       }
@@ -78,13 +75,13 @@ class Bank extends Component {
   onSubmit = (event) => {
     event.preventDefault();
     const { alert } = this.props;
-    const path = "bank/saveOrUpdate";
+    const path = "loanSubType/saveOrUpdate";
     const data = {
       id: $("#id").val(),
-      bankName: $("#bankName").val(),
-      bankShortName: $("#bankShortName").val(),
+      loanSubTypeName: $("#loanSubTypeName").val(),
       description: $("#description").val(),
     };
+
     Http.save(path, data).then((res) => {
       if (!res.data.error) {
         this.setState({
@@ -102,8 +99,7 @@ class Bank extends Component {
   selectHandler = (id, data) => {
     this.setState({
       id: data.id,
-      bankName: data.bank_name,
-      bankShortName: data.bank_short_name,
+      loanSubTypeName: data.loan_sub_type_name,
       description: data.description,
       showCreate: true,
       showList: false,
@@ -111,7 +107,7 @@ class Bank extends Component {
   };
 
   deleteHandler = (id) => {
-    let path = "bank/delete";
+    let path = "loanSubType/delete";
     const { alert } = this.props;
     let data = {
       id: id,
@@ -129,18 +125,17 @@ class Bank extends Component {
   };
 
   render() {
-    const { bankList } = this.state;
-    const data = bankList.map((bank, index) => {
+    const { loanSubTypeList } = this.state;
+    const data = loanSubTypeList.map((loanSubType, index) => {
       return (
         <tr key={index + 1}>
           <td scope="row">{index + 1}</td>
-          <td>{bank.bank_name}</td>
-          <td>{bank.bank_short_name}</td>
-          <td>{bank.description}</td>
+          <td>{loanSubType.loan_sub_type_name}</td>
+          <td>{loanSubType.description}</td>
           <td style={{ textAlign: "center" }}>
             <i
               className="material-icons"
-              onClick={() => this.selectHandler(bank.id, bank)}
+              onClick={() => this.selectHandler(loanSubType.id, loanSubType)}
             >
               edit
             </i>
@@ -148,7 +143,7 @@ class Bank extends Component {
           <td style={{ textAlign: "center" }}>
             <i
               className="material-icons"
-              onClick={() => this.deleteHandler(bank.id)}
+              onClick={() => this.deleteHandler(loanSubType.id)}
             >
               delete
             </i>
@@ -166,7 +161,7 @@ class Bank extends Component {
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div className="card">
                     <div className="header">
-                      <h2>Bank List</h2>
+                      <h2>Loan Sub Type List List</h2>
                       <ul className="header-dropdown m-r--5">
                         <button
                           type="button"
@@ -183,7 +178,6 @@ class Bank extends Component {
                           <tr>
                             <th>SL No.</th>
                             <th>Name</th>
-                            <th>Short Name</th>
                             <th>Description</th>
                             <th colSpan="2" style={{ textAlign: "center" }}>
                               Action
@@ -202,7 +196,7 @@ class Bank extends Component {
                 <div className="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                   <div className="card">
                     <div className="header">
-                      <h2>Bank Setup</h2>
+                      <h2>Loan Sub-Type Setup</h2>
                       <ul className="header-dropdown m-r--5">
                         <li className="dropdown">
                           <a
@@ -225,7 +219,7 @@ class Bank extends Component {
                         />
                         <div className="row clearfix">
                           <div className="col-sm-6">
-                            <label className="required" for="bankName">
+                            <label className="required" for="loanSubTypeName">
                               Name
                             </label>
                             <div className="form-group">
@@ -233,35 +227,16 @@ class Bank extends Component {
                                 <input
                                   type="text"
                                   className="form-control"
-                                  name="bankName"
-                                  id="bankName"
+                                  name="loanSubTypeName"
+                                  id="loanSubTypeName"
                                   required
                                   onChange={this.onChangeHandler.bind(this)}
-                                  value={this.state.bankName}
+                                  value={this.state.loanSubTypeName}
                                   placeholder=""
                                 />
                               </div>
                             </div>
                           </div>
-                          <div className="col-sm-6">
-                            <label for="bankShortName">Short Name</label>
-                            <div className="form-group">
-                              <div className="form-line">
-                                <input
-                                  type="text"
-                                  className="form-control"
-                                  name="bankShortName"
-                                  id="bankShortName"
-                                  onChange={this.onChangeHandler.bind(this)}
-                                  value={this.state.bankShortName}
-                                  placeholder=""
-                                />
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="row clearfix">
                           <div className="col-sm-12">
                             <label for="description">Description</label>
                             <div className="form-group">
@@ -269,7 +244,7 @@ class Bank extends Component {
                                 <textarea
                                   rows="4"
                                   className="form-control no-resize"
-                                  placeholder="Details about the bank..."
+                                  placeholder="Details about the loan sub-type..."
                                   onChange={this.onChangeHandler.bind(this)}
                                   name="description"
                                   id="description"
@@ -322,4 +297,4 @@ class Bank extends Component {
   }
 }
 
-export default withAlert()(Bank);
+export default withAlert()(LoanSubType);

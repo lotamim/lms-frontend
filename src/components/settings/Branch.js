@@ -317,7 +317,7 @@ class Branch extends Component {
                         {this.state.id == "" ? (
                           <button
                             type="submit"
-                            className="btn bg-pink waves-effect"
+                            class="btn btn-success waves-effect"
                           >
                             Save
                           </button>
@@ -328,7 +328,7 @@ class Branch extends Component {
                           >
                             <button
                               type="submit"
-                              className="btn bg-pink waves-effect"
+                              class="btn btn-success waves-effect"
                               style={{ marginRight: "10px" }}
                             >
                               Update

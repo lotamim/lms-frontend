@@ -27,6 +27,7 @@ import Menu from "./components/dashboard/Menu";
 import MenuItem from "./components/dashboard/MenuItem";
 import Permission from "./components/dashboard/Permission";
 import Branch from "./components/settings/Branch";
+import LoanSubType from "./components/settings/LoanSubType";
 import Account from './components/settings/Account';
 
 class App extends Component {
@@ -62,6 +63,7 @@ class App extends Component {
               <Route exact path="/rolereport" component={RoleReport} />
               <Route exact path="/branch" component={Branch} />
               <Route exact path="/bank" component={Bank} />
+              <Route exact path="/loansubtype" component={LoanSubType} />
               <Route exact path="/account" component={Account} />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
