@@ -28,10 +28,8 @@ import MenuItem from "./components/dashboard/MenuItem";
 import Permission from "./components/dashboard/Permission";
 import Branch from "./components/settings/Branch";
 import LoanSubType from "./components/settings/LoanSubType";
-import Account from './components/settings/Account';
+import Account from "./components/settings/Account";
 import Charge from './components/settings/Charge';
-
-
 class App extends Component {
   constructor(props) {
     super(props);
