@@ -30,6 +30,7 @@ import Branch from "./components/settings/Branch";
 import LoanSubType from "./components/settings/LoanSubType";
 import Account from "./components/settings/Account";
 import Unit from "./components/settings/Unit";
+import Division from "./components/settings/Division";
 import Charge from "./components/settings/Charge";
 class App extends Component {
   constructor(props) {
@@ -68,6 +69,7 @@ class App extends Component {
               <Route exact path="/account" component={Account} />
               <Route exact path="/charge" component={Charge} />
               <Route exact path="/unit" component={Unit} />
+              <Route exact path="/division" component={Division} />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
           </Router>
