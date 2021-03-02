@@ -170,21 +170,25 @@ class Account extends Component {
     });
   };
 
-  selectHandler = (id, branch) => {
-    // this.addNew();
-    // this.setState({
-    //   id: branch.id,
-    //   branchName: branch.branch_name,
-    //   phone: branch.phone,
-    //   email: branch.email,
-    //   contactPerson: branch.contact_person,
-    //   address: branch.address,
-    // });
+  selectHandler = (id) => {
+    const path = "account/select";
+    this.addNew();
+    Http.select(path, { id: id }).then(res => {
+      this.setState({
+        id : res.data.list[0].id
+      })
+      $("#bankId").val(res.data.list[0].bank_id).prop('selected',true);
+      $("#branchId").val(res.data.list[0].branch_id).prop('selected',true);
+      $("#unitId").val(res.data.list[0].unit_id).prop('selected',true);
+      $("#divisionId").val(res.data.list[0].division_id).prop('selected',true);
+      $("#accountTypeId").val(res.data.list[0].account_type_id).prop('selected',true);
+      $("#accountNumber").val(res.data.list[0].account_number);
+      $("#accountBalance").val(res.data.list[0].account_balance);
+      // console.log(res.data.list);
+    });
   };
   onChangeHandler = (event) => {
-    console.log(event.target.value);
     this.setState({
-      defualtvalue: event.target.value,
       [event.target.name]: event.target.value,
     });
   };
@@ -228,7 +232,7 @@ class Account extends Component {
           <td style={{ textAlign: "center" }}>
             <i
               className="material-icons"
-              onClick={() => this.selectHandler(account.id, account)}
+              onClick={() => this.selectHandler(account.id)}
             >
               edit
             </i>
@@ -344,8 +348,8 @@ class Account extends Component {
                                   name="bankId"
                                   className="form-control"
                                   onChange={this.onChangeHandler.bind(this)}
-                                  value={this.state.defualtvalue}
                                 >
+                                  <option value="selected">--Select Bank--</option>
                                   {bankData}
                                 </select>
                               </div>
@@ -362,6 +366,7 @@ class Account extends Component {
                                   id="branchId"
                                   name="branchId"
                                 >
+                                  <option value="selected">--Select Branch--</option>
                                   {branchData}
                                 </select>
                               </div>
@@ -381,6 +386,7 @@ class Account extends Component {
                                   id="accountTypeId"
                                   name="accountTypeId"
                                 >
+                                  <option value="selected">--Select Account Type--</option>
                                   {accountTypeData}
                                 </select>
                               </div>
@@ -398,6 +404,7 @@ class Account extends Component {
                                   id="divisionId"
                                   name="divisionId"
                                 >
+                                  <option value="selected">--Select Division--</option>
                                   {divisionData}
                                 </select>
                               </div>
@@ -417,6 +424,7 @@ class Account extends Component {
                                   id="unitId"
                                   name="unitId"
                                 >
+                                  <option value="selected">--Select Unit--</option>
                                   {unitData}
                                 </select>
                               </div>
@@ -470,13 +478,13 @@ class Account extends Component {
                             Save
                           </button>
                         ) : (
-                          <button
-                            type="submit"
-                            className="btn bg-pink waves-effect"
-                          >
-                            Update
-                          </button>
-                        )}
+                            <button
+                              type="submit"
+                              className="btn bg-pink waves-effect"
+                            >
+                              Update
+                            </button>
+                          )}
                       </form>
                     </div>
                   </div>
