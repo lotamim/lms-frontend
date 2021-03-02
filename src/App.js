@@ -29,7 +29,8 @@ import Permission from "./components/dashboard/Permission";
 import Branch from "./components/settings/Branch";
 import LoanSubType from "./components/settings/LoanSubType";
 import Account from "./components/settings/Account";
-import Charge from './components/settings/Charge';
+import Unit from "./components/settings/Unit";
+import Charge from "./components/settings/Charge";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -66,6 +67,7 @@ class App extends Component {
               <Route exact path="/loansubtype" component={LoanSubType} />
               <Route exact path="/account" component={Account} />
               <Route exact path="/charge" component={Charge} />
+              <Route exact path="/unit" component={Unit} />
               {/* <Route component={PageNotFound} /> */}
             </Switch>
           </Router>
