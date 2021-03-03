@@ -173,24 +173,26 @@ class Account extends Component {
   selectHandler = (id) => {
     const path = "account/select";
     this.addNew();
-    Http.select(path, { id: id }).then(res => {
+    Http.select(path, { id: id }).then((res) => {
       this.setState({
-        id : res.data.list[0].id
-      })
-      $("#bankId").val(res.data.list[0].bank_id).prop('selected',true);
-      $("#branchId").val(res.data.list[0].branch_id).prop('selected',true);
-      $("#unitId").val(res.data.list[0].unit_id).prop('selected',true);
-      $("#divisionId").val(res.data.list[0].division_id).prop('selected',true);
-      $("#accountTypeId").val(res.data.list[0].account_type_id).prop('selected',true);
+        id: res.data.list[0].id,
+      });
+      $("#bankId").val(res.data.list[0].bank_id).prop("selected", true);
+      $("#branchId").val(res.data.list[0].branch_id).prop("selected", true);
+      $("#unitId").val(res.data.list[0].unit_id).prop("selected", true);
+      $("#divisionId").val(res.data.list[0].division_id).prop("selected", true);
+      $("#accountTypeId")
+        .val(res.data.list[0].account_type_id)
+        .prop("selected", true);
       $("#accountNumber").val(res.data.list[0].account_number);
       $("#accountBalance").val(res.data.list[0].account_balance);
-      // console.log(res.data.list);
     });
   };
+
   onChangeHandler = (event) => {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
+    // this.setState({
+    // [event.target.name]: event.target.value,
+    // });
   };
 
   deleteHandler = (id) => {
@@ -349,7 +351,9 @@ class Account extends Component {
                                   className="form-control"
                                   onChange={this.onChangeHandler.bind(this)}
                                 >
-                                  <option value="selected">--Select Bank--</option>
+                                  <option value="selected">
+                                    --Select Bank--
+                                  </option>
                                   {bankData}
                                 </select>
                               </div>
@@ -366,7 +370,9 @@ class Account extends Component {
                                   id="branchId"
                                   name="branchId"
                                 >
-                                  <option value="selected">--Select Branch--</option>
+                                  <option value="selected">
+                                    --Select Branch--
+                                  </option>
                                   {branchData}
                                 </select>
                               </div>
@@ -386,7 +392,9 @@ class Account extends Component {
                                   id="accountTypeId"
                                   name="accountTypeId"
                                 >
-                                  <option value="selected">--Select Account Type--</option>
+                                  <option value="selected">
+                                    --Select Account Type--
+                                  </option>
                                   {accountTypeData}
                                 </select>
                               </div>
@@ -404,7 +412,9 @@ class Account extends Component {
                                   id="divisionId"
                                   name="divisionId"
                                 >
-                                  <option value="selected">--Select Division--</option>
+                                  <option value="selected">
+                                    --Select Division--
+                                  </option>
                                   {divisionData}
                                 </select>
                               </div>
@@ -424,14 +434,16 @@ class Account extends Component {
                                   id="unitId"
                                   name="unitId"
                                 >
-                                  <option value="selected">--Select Unit--</option>
+                                  <option value="selected">
+                                    --Select Unit--
+                                  </option>
                                   {unitData}
                                 </select>
                               </div>
                             </div>
                           </div>
                           <div className="col-sm-6">
-                            <label for="contactPerson" className="required">
+                            <label for="accountNumber" className="required">
                               Account Number
                             </label>
                             <div className="form-group">
@@ -442,8 +454,8 @@ class Account extends Component {
                                   name="accountNumber"
                                   id="accountNumber"
                                   placeholder=""
-                                  value={this.state.accountNumber}
-                                  onChange={this.onChangeHandler.bind(this)}
+                                  // value={this.state.accountNumber}
+                                  // onChange={this.onChangeHandler.bind(this)}
                                 />
                               </div>
                             </div>
@@ -452,7 +464,7 @@ class Account extends Component {
 
                         <div className="row clearfix">
                           <div className="col-sm-6">
-                            <label for="contactPerson">Balance</label>
+                            <label for="accountNumber">Balance</label>
                             <div className="form-group">
                               <div className="form-line">
                                 <input
@@ -461,8 +473,8 @@ class Account extends Component {
                                   name="accountBalance"
                                   id="accountBalance"
                                   placeholder=""
-                                  value={this.state.accountBalance}
-                                  onChange={this.onChangeHandler.bind(this)}
+                                  // value={this.state.accountBalance}
+                                  // onChange={this.onChangeHandler.bind(this)}
                                 />
                               </div>
                             </div>
@@ -478,13 +490,13 @@ class Account extends Component {
                             Save
                           </button>
                         ) : (
-                            <button
-                              type="submit"
-                              className="btn bg-pink waves-effect"
-                            >
-                              Update
-                            </button>
-                          )}
+                          <button
+                            type="submit"
+                            className="btn bg-pink waves-effect"
+                          >
+                            Update
+                          </button>
+                        )}
                       </form>
                     </div>
                   </div>
