@@ -32,6 +32,11 @@ import Account from "./components/settings/Account";
 import Unit from "./components/settings/Unit";
 import Division from "./components/settings/Division";
 import Charge from "./components/settings/Charge";
+
+
+
+import LevelOfAuthority from "./components/settings/LevelOfAuthority";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -71,6 +76,7 @@ class App extends Component {
               <Route exact path="/unit" component={Unit} />
               <Route exact path="/division" component={Division} />
               {/* <Route component={PageNotFound} /> */}
+              <Route exact path="/levelofauthority" component={LevelOfAuthority} />
             </Switch>
           </Router>
         ) : (
